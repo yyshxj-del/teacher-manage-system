@@ -3,2491 +3,575 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>长春中医药大学 · 中西医结合临床学院 教师工作台</title>
+  <title>长春中医药大学 · 中西医结合临床学院 课程学习门户（学生端）</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
       background-color: #F8FAFC;
       color: #0F172A;
     }
-    .nav-item.active {
-      background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%);
-      color: #4F46E5;
+    .tab-btn.active {
+      background-color: #4F46E5;
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px -2px rgba(79, 70, 229, 0.35);
+    }
+    .class-pill.active {
+      background-color: #EEF2FF;
+      color: #4338CA;
+      border-color: #818CF8;
       font-weight: 600;
-    }
-    .nav-item.active svg {
-      color: #4F46E5;
-    }
-    .card-hover {
-      transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.08), 0 4px 10px -6px rgba(15, 23, 42, 0.04);
-      border-color: #C7D2FE;
-    }
-    .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background-color: #CBD5E1;
-      border-radius: 9999px;
-    }
-    .custom-scroll::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-view {
-      animation: fadeSlideIn 0.2s ease-out;
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col lg:flex-row overflow-x-hidden">
+<body class="min-h-screen flex flex-col">
 
-  <!-- Mobile Overlay -->
-  <div id="mobileOverlay" class="fixed inset-0 bg-slate-900/40 z-30 hidden lg:hidden backdrop-blur-xs"></div>
-
-  <!-- Left Sidebar -->
-  <aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white border-r border-slate-200 flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out shrink-0">
-    <!-- Brand Header -->
-    <div class="p-4 border-b border-slate-100">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 flex items-center justify-center text-white font-bold shadow-sm">
-            W
+  <!-- Top Header -->
+  <header class="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-sm shrink-0">
+          中
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 id="portalTitle" class="text-base sm:text-lg font-bold text-slate-900">中西医结合内科学 · 学生学习门户</h1>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">只读公开版</span>
           </div>
-          <div>
-            <div class="text-sm font-bold text-slate-900 leading-tight">WorkBuddy</div>
-            <div class="text-xs text-indigo-600 font-medium">教师个人工作台</div>
-          </div>
+          <p id="portalSub" class="text-xs text-slate-500 mt-0.5">长春中医药大学 · 中西医结合临床学院（2024级 1–4 班）</p>
         </div>
-        <button id="closeSidebarBtn" class="lg:hidden p-1.5 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600" aria-label="关闭菜单">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
       </div>
-      <!-- Current Project Badge -->
-      <button id="sidebarProjectBtn" class="mt-3 w-full text-left px-3 py-2 rounded-lg bg-slate-50 hover:bg-indigo-50/60 border border-slate-200/80 transition flex items-center justify-between group">
-        <div class="min-w-0">
-          <div id="sidebarProjectName" class="text-xs font-semibold text-slate-800 truncate">中西医结合临床教学台</div>
-          <div id="sidebarProjectMeta" class="text-[11px] text-slate-500 truncate mt-0.5">长春中医药大学 · 4个班</div>
-        </div>
-        <svg class="w-4 h-4 text-slate-400 group-hover:text-indigo-600 shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-      </button>
-    </div>
 
-    <!-- Search -->
-    <div class="px-3 pt-3 pb-2">
-      <div class="relative">
-        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        <input id="globalSearchInput" type="text" placeholder="搜索课程、病案、资料、班级..." class="w-full pl-9 pr-3 py-1.5 text-xs bg-slate-100/80 border border-transparent focus:border-indigo-300 focus:bg-white rounded-lg outline-none transition" />
+      <!-- Class Filter -->
+      <div class="flex items-center gap-1.5 flex-wrap" id="classFilterBar">
+        <button data-class="all" class="class-pill active px-3 py-1.5 rounded-lg text-xs border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">全部班级</button>
+        <button data-class="中西医临床1班" class="class-pill px-3 py-1.5 rounded-lg text-xs border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">1班</button>
+        <button data-class="中西医临床2班" class="class-pill px-3 py-1.5 rounded-lg text-xs border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">2班</button>
+        <button data-class="中西医临床3班" class="class-pill px-3 py-1.5 rounded-lg text-xs border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">3班</button>
+        <button data-class="中西医临床4班" class="class-pill px-3 py-1.5 rounded-lg text-xs border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 transition">4班</button>
       </div>
     </div>
 
-    <!-- Navigation -->
-    <nav id="sidebarNav" class="flex-1 overflow-y-auto custom-scroll px-3 py-2 space-y-5 text-sm">
-      <div>
-        <button data-view="dashboard" class="nav-item active w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-          <span>首页总览</span>
-        </button>
+    <!-- Navigation Tabs & Search -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0" id="navTabs">
+        <button data-tab="overview" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 whitespace-nowrap transition">课程主页</button>
+        <button data-tab="schedule" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 whitespace-nowrap transition">课表与见习</button>
+        <button data-tab="homework" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 whitespace-nowrap transition">分层作业要求</button>
+        <button data-tab="resources" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 whitespace-nowrap transition">公开课件与资料</button>
+        <button data-tab="notices" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-600 hover:bg-slate-100 whitespace-nowrap transition">班级通知</button>
       </div>
-
-      <div>
-        <div class="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">日常 8 大模块</div>
-        <div class="space-y-0.5">
-          <button data-view="courses" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <span class="flex items-center gap-2.5"><svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>今日课程</span>
-            <span id="navBadgeCourses" class="text-[11px] px-1.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-medium">4</span>
-          </button>
-          <button data-view="prep" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <span class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>备课中心</span>
-            <span id="navBadgePrep" class="text-[11px] px-1.5 py-0.5 rounded-full bg-emerald-50 text-emerald-600 font-medium">3</span>
-          </button>
-          <button data-view="classroom" class="nav-item w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <svg class="w-4 h-4 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            <span>课堂教学</span>
-          </button>
-          <button data-view="homework" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <span class="flex items-center gap-2.5"><svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>作业反馈</span>
-            <span id="navBadgeHomework" class="text-[11px] px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-700 font-medium">36</span>
-          </button>
-          <button data-view="classAffairs" class="nav-item w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            <span>班级事务</span>
-          </button>
-          <button data-view="assets" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <span class="flex items-center gap-2.5"><svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg>教学资源库</span>
-            <span id="navBadgeAssets" class="text-[11px] px-1.5 py-0.5 rounded-full bg-violet-50 text-violet-600 font-medium">8</span>
-          </button>
-          <button data-view="students" class="nav-item w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <svg class="w-4 h-4 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-            <span>学情记录</span>
-          </button>
-          <button data-view="review" class="nav-item w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-            <span>每周复盘</span>
-          </button>
-        </div>
-      </div>
-
-      <div>
-        <div class="px-3 mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">AI 能力与扩展</div>
-        <div class="space-y-0.5">
-          <button data-view="experts" class="nav-item w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span>AI 教学专家与工作流</span>
-          </button>
-          <button data-view="settings" class="nav-item w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-            <span>项目配置与定时任务</span>
-          </button>
-          <button data-view="acceptance" class="nav-item w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-700 hover:bg-slate-50 transition">
-            <span class="flex items-center gap-2.5"><svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>验收与边界规范</span>
-            <span id="navBadgeAcceptance" class="text-[11px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium">3/5</span>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Storage Footer -->
-    <div class="p-3.5 border-t border-slate-100 bg-slate-50/70">
-      <div class="flex items-center justify-between text-[11px] text-slate-600 mb-1.5">
-        <span class="font-medium">项目资产库空间</span>
-        <span id="storageText">1.24 GB / 5 GB</span>
-      </div>
-      <div class="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-        <div id="storageBar" class="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full transition-all" style="width: 25%"></div>
-      </div>
-      <div class="mt-2 flex items-center justify-between text-[11px] text-slate-400">
-        <span>长春中医药大学 · 4班已配置</span>
-        <span class="inline-flex items-center gap-1 text-emerald-600 font-medium"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>本地已保存</span>
+      <div class="relative w-full sm:w-64 shrink-0">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input id="searchBox" type="text" placeholder="搜索章节、课件、作业或通知..." class="w-full pl-9 pr-3 py-1.5 text-xs rounded-lg bg-slate-100 border border-transparent focus:bg-white focus:border-indigo-300 outline-none transition" />
       </div>
     </div>
-  </aside>
+  </header>
 
   <!-- Main Content -->
-  <div class="flex-1 flex flex-col min-w-0">
-    <!-- Top Header -->
-    <header class="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3 min-w-0">
-        <button id="openSidebarBtn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100" aria-label="打开菜单">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-        <div class="min-w-0">
-          <h1 id="headerTitle" class="text-base sm:text-lg font-bold text-slate-900 truncate">我的教师工作台</h1>
-          <p id="headerSubtitle" class="text-xs text-slate-500 truncate hidden sm:block">把专家、教材、学情与产出文件集中到一处，备课不用每次重头交代背景</p>
-        </div>
-      </div>
+  <main id="appMain" class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6"></main>
 
-      <div class="flex items-center gap-2 shrink-0">
-        <button id="togglePrivacyBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border transition" title="开启后自动匿名化学生姓名，保护隐私">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-          <span id="privacyBtnLabel">隐私脱敏：已开启</span>
-        </button>
-        <button id="quickAiPrepBtn" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs transition">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <span class="hidden sm:inline">发起 AI 备课流</span>
-          <span class="sm:hidden">AI 备课</span>
-        </button>
-      </div>
-    </header>
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white py-4 px-4 text-center text-xs text-slate-400">
+    <span id="footerInfo">长春中医药大学 · 中西医结合临床学院课程门户（只读学生端） · 数据更新于 2026-11-23</span>
+  </footer>
 
-    <!-- Search Results Banner -->
-    <div id="searchBanner" class="hidden bg-indigo-50 border-b border-indigo-100 px-4 sm:px-6 py-2.5 flex items-center justify-between text-xs text-indigo-800">
-      <span id="searchBannerText"></span>
-      <button id="clearSearchBtn" class="font-semibold text-indigo-600 hover:underline">清除搜索</button>
-    </div>
-
-    <!-- Main Dynamic View Container -->
-    <main id="mainContent" class="flex-1 p-4 sm:p-6 max-w-7xl w-full mx-auto space-y-6"></main>
-  </div>
-
-  <!-- Generic Modal -->
-  <div id="modalBackdrop" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs hidden items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 max-w-2xl w-full max-h-[88vh] flex flex-col overflow-hidden animate-view">
-      <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-        <h3 id="modalTitle" class="text-base font-bold text-slate-900">弹窗标题</h3>
-        <button id="modalCloseBtn" class="p-1.5 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700">
+  <!-- Resource Detail Modal -->
+  <div id="detailModal" class="fixed inset-0 z-50 bg-slate-900/50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full shadow-xl border border-slate-200 overflow-hidden">
+      <div class="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+        <h3 id="modalTitle" class="text-sm font-bold text-slate-900">资料详情</h3>
+        <button id="closeModalBtn" class="p-1 rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <div id="modalBody" class="p-5 overflow-y-auto custom-scroll flex-1"></div>
-      <div id="modalFooter" class="px-5 py-3.5 border-t border-slate-100 bg-slate-50 flex items-center justify-end gap-2"></div>
+      <div id="modalContent" class="p-5 text-xs text-slate-700 space-y-3 leading-relaxed"></div>
+      <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button id="modalOkBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold hover:bg-indigo-700">知道了</button>
+      </div>
     </div>
   </div>
-
-  <!-- Toast Notification -->
-  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <script>
     (function () {
       'use strict';
 
-      const STORAGE_KEY = 'workbuddy_teacher_workbench_ccucm_v2';
-
-      // Default initial state strictly aligned with the article's 8 modules, 6 experts, 4 asset zones, 5 workflows & settings
-      function getDefaultState() {
-        return {
-          activeView: 'dashboard',
-          dashboardMode: 'full', // 'mvp4' (4高频区) | 'full' (8大模块)
-          privacyAnonymized: true,
-          searchQuery: '',
-          config: {
-            projectName: '长春中医药大学·中西医结合临床教学台',
-            teacherRole: '中西医结合临床学院专业课教师',
-            subject: '中西医结合内科学',
-            grade: '2024级本科',
+      // =========================================================================
+      // 【教师更新区】每次发布新通知、课表或资料时，只需修改下方配置并重新上传本文件即可
+      // =========================================================================
+      const COURSE_PORTAL_DATA = {
+        meta: {
+          college: '长春中医药大学 · 中西医结合临床学院',
+          courseName: '中西医结合内科学',
+          gradeInfo: '2024级本科 · 中西医临床1–4班',
+          updatedAt: '2026-11-23',
+          termWeek: '第 13 教学周',
+          textbook: '全国中医药行业“十四五”规划教材《中西医结合内科学》',
+          welcomeNote: '请同学们按所在班级查看本周课表、附属医院见习安排、分层病案作业要求及公开学习资料。'
+        },
+        // 1. 近期课表与见习安排
+        schedules: [
+          {
+            id: 's1',
+            day: '周一',
+            time: '08:00 - 09:40',
+            classes: ['中西医临床1班', '中西医临床2班'],
+            title: '慢性阻塞性肺疾病（COPD）中西医结合诊治',
+            location: '致知楼 302',
+            type: '理论课',
+            prepTip: '请提前预习肺功能分级指标与痰热郁肺、外寒内饮两证鉴别要点。'
+          },
+          {
+            id: 's2',
+            day: '周一',
+            time: '10:00 - 11:40',
+            classes: ['中西医临床3班', '中西医临床4班'],
+            title: '慢性阻塞性肺疾病（COPD）中西医结合诊治',
+            location: '致知楼 305',
+            type: '理论课',
+            prepTip: '结合课程门户公开病案预习，课堂将随机抽组对比方药加减。'
+          },
+          {
+            id: 's3',
+            day: '周三',
+            time: '14:00 - 15:40',
+            classes: ['中西医临床1班', '中西医临床2班'],
+            title: '循环系统病案讨论：胸痹心痛辨证与急救衔接',
+            location: '临床技能中心 204',
+            type: '病案讨论',
+            prepTip: '各学习小组需携带《胸痹》分析提纲，重点准备心电图定位与活血化瘀方思路。'
+          },
+          {
+            id: 's4',
+            day: '周四',
+            time: '14:00 - 16:30',
             classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
-            textbookVersion: '全国中医药行业“十四五”规划教材《中西医结合内科学》',
-            dailyTasks: '备课、理论授课、病案分析作业批改、临床见习指导、教研室集体备课',
-            commonResources: '教案、教学PPT、典型病案库、辨证论治思维导图、执业医师真题',
-            reminderStyle: '今日课表 + 病案批改提醒 + 每周五临床实训复盘',
-            reviewHabit: '按周复盘4个班的辨证难点、病案讨论效果与下周见习衔接',
-            globalInstructions: '面向长春中医药大学中西医结合临床学院本科生（4个班），严格对标“十四五”规划教材《中西医结合内科学》及临床诊疗指南；突出“病证结合、中西互参”临床思维，融入真实脱敏临床病案；教案须包含教学大纲要求、思政元素（大医精诚）、中西医诊断要点、辨证论治与方药加减、板书设计及课后反思；作业按基础识记、病案辨证、临床拓展三层布置并标注难度与预估用时；严禁虚构患者隐私与循证依据。'
-          },
-          courses: [
-            { id: 'c1', time: '08:00 - 09:40', className: '中西医临床1班、2班（合班）', topic: '呼吸系统疾病：慢性阻塞性肺疾病（COPD）中西医结合诊治', room: '致知楼 302', status: 'done', note: '重点辨析急性加重期与稳定期的中医证型演变及西医分级治疗' },
-            { id: 'c2', time: '10:00 - 11:40', className: '中西医临床3班、4班（合班）', topic: '呼吸系统疾病：慢性阻塞性肺疾病（COPD）中西医结合诊治', room: '致知楼 305', status: 'upcoming', note: '结合附属医院典型脱敏病案，对比痰热郁肺与痰浊阻肺选方差异' },
-            { id: 'c3', time: '14:00 - 15:40', className: '中西医临床1班、2班', topic: '循环系统病案讨论：冠心病心绞痛（胸痹）辨证与急救衔接', room: '临床技能中心 204', status: 'upcoming', note: '小组汇报心电图判读与血府逐瘀汤/瓜蒌薤白半夏汤加减思路' },
-            { id: 'c4', time: '16:00 - 17:00', className: '中西医结合内科教研室', topic: '期中临床病案考核命题与4个班进度核对', room: '学院楼 408', status: 'upcoming', note: '统一客观结构化临床考试（OSCE）评分标准与见习带教安排' }
-          ],
-          reminders: [
-            { id: 'r1', text: '课前收齐中西医临床3班、4班《胸痹心痛》中西医结合病案分析报告', priority: 'high', done: false },
-            { id: 'r2', text: '下午教研室会前，核对4个班附属医院临床见习分组名单并确认带教老师', priority: 'medium', done: false }
-          ],
-          prepLessons: [
-            {
-              id: 'p1',
-              title: '原发性高血压（眩晕）的中西医结合诊疗',
-              chapter: '第二章 循环系统疾病 第3节',
-              grade: '2024级本科（4个班）',
-              status: '定稿待转课件',
-              stage: 2, // 1:教案框架 2:教案定稿 3:课件初稿 4:分层作业完成
-              updatedAt: '2026-11-22',
-              objectives: '1. 掌握高血压分级及西医五大类一线降压药适应证与禁忌证；2. 掌握肝阳上亢、痰湿中阻、阴虚阳亢等核心证型的辨证要点与天麻钩藤饮/半夏白术天麻汤加减；3. 建立“降压达标与改善症状并重”的中西医协同诊疗思维。',
-              content: '【教学过程】\n1. 脱敏病案导入：58岁男性，血压162/98mmHg，头晕胀痛、面红目赤、口苦脉弦，引导学生完成西医危险分层与中医四诊合参。\n2. 理论精讲：西医降压联合方案选择 + 中医病机演变（风、火、痰、瘀、虚）。\n3. 难点辨析：对比肝阳上亢与肝肾阴虚舌脉差异，讨论中西药联用注意事项。\n4. 课程思政与板书：融入“治未病”与慢性病长期管理理念；左列西医分级用药，右列中医证治方药对照图。'
-            },
-            {
-              id: 'p2',
-              title: '消化性溃疡（胃脘痛）的中西医结合防治',
-              chapter: '第三章 消化系统疾病 第2节',
-              grade: '2024级本科（4个班）',
-              status: '框架初稿',
-              stage: 1,
-              updatedAt: '2026-11-23',
-              objectives: '掌握幽门螺杆菌（Hp）根除四联方案，辨析肝胃不和、脾胃虚寒、胃阴不足证治要点及愈疡防复发思路。',
-              content: '【教学框架初稿】\n1. 对比胃溃疡与十二指肠溃疡节律性疼痛特点；\n2. 结合胃镜黏膜象与中医微观辨证，讲解柴胡疏肝散、黄芪建中汤临床运用；\n3. 设计4个班分组病案辩论：Hp根除后仍胃脘隐痛的中医调理策略。'
-            },
-            {
-              id: 'p3',
-              title: '慢性心力衰竭（心衰病）的中西医协同管理',
-              chapter: '第二章 循环系统疾病 第1节',
-              grade: '2024级本科（4个班）',
-              status: '已完成全套',
-              stage: 4,
-              updatedAt: '2026-11-19',
-              objectives: '掌握心衰新四联药物机制及心肺气虚、阳虚水泛证治（真武汤合葶苈大枣泻肺汤）。',
-              content: '已配齐4个班通用教案、互动课件大纲、三层病案作业及执业医师对标检测单，已归档至资产库产出文件区。'
-            }
-          ],
-          classroomLogs: [
-            { id: 'cl1', date: '2026-11-23', className: '中西医临床1班、2班', lesson: '慢性阻塞性肺疾病（COPD）中西医结合诊治', adjustment: '学生在肺功能FEV1/FVC判断及“痰热郁肺 vs 外寒内饮”方药鉴别处提问较多，临时增加8分钟真实脱敏胸片与舌象对照演练。', boardNote: '急性期以祛邪为先（清金化痰/小青龙汤）配西医抗感染解痉；缓解期补肺益肾（玉屏风/金匮肾气）防复发。' },
-            { id: 'cl2', date: '2026-11-20', className: '中西医临床3班、4班', lesson: '慢性心力衰竭（心衰病）中西医结合诊治', adjustment: '3班与4班学生对利尿剂与温阳利水方协同减毒兴趣高，课堂病案讨论超时3分钟，课后通过班委群补充了心衰指南对比表。', boardNote: '心衰核心病机：本虚标实（气虚阳微为本，血瘀水停为标）。' }
-          ],
-          homeworkBatches: [
-            { id: 'h1', title: '胸痹心痛中西医结合病案分析报告', className: '中西医临床1班', total: 38, submitted: 38, pendingGrade: 9, needsReview: true, errorSummary: '心电图ST段定位描述不规范（占比26%）；气虚血瘀与痰浊闭阻主方混淆（占比19%）', dueDate: '2026-11-23' },
-            { id: 'h2', title: '胸痹心痛中西医结合病案分析报告', className: '中西医临床2班', total: 36, submitted: 36, pendingGrade: 8, needsReview: true, errorSummary: '硝酸酯类药物禁忌证漏写（占比22%）；辨证依据未紧扣舌脉', dueDate: '2026-11-23' },
-            { id: 'h3', title: '胸痹心痛中西医结合病案分析报告', className: '中西医临床3班', total: 37, submitted: 36, pendingGrade: 11, needsReview: true, errorSummary: '方剂加减脱离患者兼证，缺少随证化裁说明（占比29%）', dueDate: '2026-11-23' },
-            { id: 'h4', title: '胸痹心痛中西医结合病案分析报告', className: '中西医临床4班', total: 38, submitted: 37, pendingGrade: 10, needsReview: false, errorSummary: '整体规范度较高，少数同学西医鉴别诊断条目不够完整', dueDate: '2026-11-23' }
-          ],
-          classAffairs: [
-            { id: 'ca1', type: '教学通知', className: '中西医临床1-4班', title: '附属医院心内科临床见习分组与白大衣着装提醒', status: '待发送', date: '2026-11-23', content: '各位学委请转达：本周四下午1-4班分批前往长春中医药大学附属医院心内科见习，请提前穿戴整洁白大衣、携带听诊器与见习手册，严禁拍摄患者真实姓名及住院号。' },
-            { id: 'ca2', type: '班导沟通', className: '中西医临床3班', title: '期中病案书写规范专题答疑安排', status: '进行中', date: '2026-11-23', content: '针对3班近期病案分析中方药加减不够精准的问题，周三晚自习在致知楼208开展30分钟小班答疑与优秀病案示范。' },
-            { id: 'ca3', type: '教务安排', className: '全体（4个班）', title: '执业医师模拟题库阶段自测开放通知', status: '已完成', date: '2026-11-21', content: '呼吸与循环系统共50道A2/A3型病例题已上传至资产库，请4个班同学于周日前完成自测。' }
-          ],
-          assets: [
-            { id: 'a1', zone: 'textbook', title: '十四五规划教材《中西医结合内科学》教学大纲与执业医师考点对照.pdf', date: '2026-11', className: '通用', docType: '教材课标', sizeMB: 48, summary: '长春中医药大学中西医结合临床学院本科培养方案要求、掌握/熟悉/了解三级大纲明细。' },
-            { id: 'a2', zone: 'textbook', title: '长春中医药大学本科理论课标准教案模板（含课程思政栏）.docx', date: '2026-10', className: '通用', docType: '教案', sizeMB: 2, summary: '包含教学目标、重难点、课程思政融入点、中西医双轨教学过程、板书与课后反思。' },
-            { id: 'a3', zone: 'history', title: '历年《原发性高血压（眩晕）》省级一流课程互动课件.pptx', date: '2026-10', className: '中西医临床1班', docType: '课件', sizeMB: 24, summary: '含血压动态监测图、中医证型鉴别动画及3则附属医院脱敏门诊病例。' },
-            { id: 'a4', zone: 'history', title: '中西医结合执业医师A2/A3型病例题库（呼吸与循环篇）.docx', date: '2026-10', className: '通用', docType: '习题与题库', sizeMB: 8, summary: '按病种整理历年高频病例题与辨证失误解析，适合课堂检测与分层作业。' },
-            { id: 'a5', zone: 'feedback', title: '中西医临床1-4班《胸痹心痛》病案作业高频错因汇总（已脱敏）.xlsx', date: '2026-11', className: '通用', docType: '学情反馈', sizeMB: 4, summary: '覆盖4个班共147份作业，已脱敏学生姓名，按西医诊断/中医辨证/方药加减三类统计。' },
-            { id: 'a6', zone: 'feedback', title: '中西医临床3班、4班临床见习问诊技能观察记录（匿名编码版）.md', date: '2026-11', className: '中西医临床3班', docType: '课堂记录', sizeMB: 2, summary: '记录学生四诊信息采集完整度、医患沟通规范性与薄弱环节。' },
-            { id: 'a7', zone: 'output', title: '原发性高血压（眩晕）_中西医结合教案定稿_20261122.md', date: '2026-11', className: '中西医临床1班', docType: '教案', sizeMB: 1, summary: '由教案指导专家生成并经教研室标准人工终审定稿，含脱敏病案与双轨板书。' },
-            { id: 'a8', zone: 'output', title: '慢性心力衰竭_三层临床病案作业单_20261119.md', date: '2026-11', className: '中西医临床4班', docType: '习题与题库', sizeMB: 1, summary: '基础识记(10分钟)+病案辨证(15分钟)+指南循证拓展(10分钟)，适用4个班分层练习。' }
-          ],
-          studentRecords: [
-            { id: 's1', realName: '张明轩', anonId: '学生A (中西医1班)', className: '中西医临床1班', tier: '发展层', observation: '西医病理机制理解透彻，但中医辨证容易忽略舌苔脉象综合判断，建议强化四诊合参训练。', weakPoint: '痰瘀互结与气阴两虚鉴别', date: '2026-11-23' },
-            { id: 's2', realName: '李思琪', anonId: '学生B (中西医2班)', className: '中西医临床2班', tier: '拓展层', observation: '方剂功底扎实，病案讨论能主动查阅最新中西医结合指南，适合担任小组临床病例汇报人。', weakPoint: '急危重症多学科联合方案', date: '2026-11-22' },
-            { id: 's3', realName: '王浩宇', anonId: '学生C (中西医3班)', className: '中西医临床3班', tier: '基础层', observation: '西药分类与不良反应记忆易混淆，建议先完成基础层药物对照卡片，再过渡到综合病案。', weakPoint: '五大类降压药禁忌证', date: '2026-11-23' },
-            { id: 's4', realName: '陈梓涵', anonId: '学生D (中西医4班)', className: '中西医临床4班', tier: '发展层', observation: '临床问诊条理清晰，病历书写规范，但方药随证加减略显保守，可多做变证拓展题。', weakPoint: '经典方剂随证化裁', date: '2026-11-21' }
-          ],
-          weeklyReviews: [
-            {
-              id: 'w1',
-              weekLabel: '2026年11月 第4周（本周）',
-              date: '2026-11-23',
-              problems: '1. 4个班在“病证结合”病案作业中，仍有约25%同学把西医诊断与中医辨证写成“两张皮”，缺乏协同治疗逻辑；\n2. 3班和4班合班人数较多，后排同学参与病案抢答频次偏低。',
-              highlights: '1. 引入附属医院脱敏胸片与真实舌象对比后，4个班课堂抬头率与病案分析准确度显著提升；\n2. 分层病案作业压缩机械抄写后，4个班平均提交率达98.6%。',
-              nextPlan: '1. 下周在1-4班分别安排15分钟《胸痹典型错案讲评》微专题；\n2. 用AI课件专家生成《消化性溃疡》胃镜象+微观辨证互动框架，并人工核对最新指南剂量。'
-            },
-            {
-              id: 'w2',
-              weekLabel: '2026年11月 第3周',
-              date: '2026-11-16',
-              problems: '心衰新四联药物名称与中医温阳利水代表方配伍记忆负担重。',
-              highlights: '通过“西医机制+中医病机”双轨思维导图，4个班随堂测验达标率由76%升至91%。',
-              nextPlan: '本周推进COPD与高血压中西医结合诊治，并衔接附属医院心内科见习。'
-            }
-          ],
-          scheduledTasks: [
-            { id: 'st1', title: '4个班病案作业错因汇总提醒', schedule: '每周五 17:00', prompt: '汇总中西医临床1-4班本周资产库学情反馈区的高频辨证失误，调用作业讲评专家生成讲评追问与变式病案。', enabled: true },
-            { id: 'st2', title: '下周中西医结合备课与见习核对', schedule: '每周日 19:30', prompt: '结合本周4个班复盘记录与下周课表，核对十四五教材章节、诊疗指南更新及脱敏病案准备。', enabled: true },
-            { id: 'st3', title: '教研室月度教学档案归档检查', schedule: '每月最后一天 18:00', prompt: '检查产出文件区教案、课件与课程思政记录命名是否规范，做好本科教学评估材料留痕。', enabled: false }
-          ],
-          acceptanceChecklist: [
-            { id: 'ac1', title: '一眼能看懂', desc: '首页重点（今日课表、待办、待批改数、高频入口）是否够清楚', checked: true },
-            { id: 'ac2', title: '覆盖高频任务', desc: '备课、课程、作业、事务 4 大高频区是否已全部覆盖并跑通', checked: true },
-            { id: 'ac3', title: '入口够顺手', desc: '常用资料（4大分区）和常用AI专家工作流是否能一键打开', checked: true },
-            { id: 'ac4', title: '能回看历史', desc: '备课记录、作业反馈、班级事务和每周复盘能否持续保留与检索', checked: false },
-            { id: 'ac5', title: '方便继续改', desc: '后续按自己学科习惯增减模块或调整项目指令是否容易迭代', checked: false }
-          ],
-          expertWorkspace: {
-            selectedExpert: 'lesson_plan',
-            selectedWorkflow: 'wf_lesson',
-            topic: '原发性高血压（眩晕）的中西医结合诊疗',
-            chapter: '十四五规划教材《中西医结合内科学》第二章 第3节',
-            extraNotes: '面向中西医临床1-4班，重点解决西医降压方案与中医肝阳上亢/痰湿中阻辨证脱节的问题，融入附属医院脱敏病案。',
-            attachedAssetIds: ['a1', 'a3', 'a5'],
-            generatedDraft: '',
-            draftReviewed: false
-          },
-          assetFilters: {
-            zone: 'all',
-            date: 'all',
-            className: 'all',
-            docType: 'all'
+            title: '附属医院心内科临床见习（分批分组）',
+            location: '长春中医药大学附属医院 住院部',
+            type: '临床见习',
+            prepTip: '自备整洁白大衣、听诊器与见习手册；严禁拍摄患者真实姓名及住院号。'
           }
-        };
-      }
+        ],
+        // 2. 分层病案作业要求（仅展示任务要求，不含任何学生个人成绩或隐私）
+        homework: [
+          {
+            id: 'hw1',
+            title: '《胸痹心痛》中西医结合病案分析报告',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            deadline: '2026-11-26（周四）18:00 前由学委汇总',
+            tiers: [
+              { level: '基础层（必做）', time: '约 15 分钟', task: '整理冠心病心绞痛西医诊断依据、急救用药禁忌证，以及气虚血瘀/痰浊闭阻主方组成。' },
+              { level: '发展层（必做）', time: '约 20 分钟', task: '完成门户公开脱敏病案（病例02）的四诊合参分析，写出完整辨证过程与方药随证加减。' },
+              { level: '拓展层（选做）', time: '约 15 分钟', task: '查阅近 3 年《中国中西医结合杂志》相关指南或综述，补充 2 条中西药联用注意事项。' }
+            ]
+          },
+          {
+            id: 'hw2',
+            title: '呼吸与循环系统执业医师 A2/A3 型病例自测（50题）',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            deadline: '2026-11-29（周日）22:00 前完成核对',
+            tiers: [
+              { level: '基础层（必做）', time: '约 25 分钟', task: '完成前 30 道单句型最佳选择题（A2型），标注错题对应的教材页码。' },
+              { level: '发展层（选做）', time: '约 20 分钟', task: '完成后 20 道病例组型题（A3型），训练连续临床决策思维。' }
+            ]
+          }
+        ],
+        // 3. 公开学习资料与课件（可将 downloadUrl 替换为学校网盘/超星/学院服务器链接）
+        resources: [
+          {
+            id: 'res1',
+            category: '课程大纲',
+            title: '《中西医结合内科学》十四五教材教学大纲与执医考点对照表.pdf',
+            updated: '2026-11-18',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            summary: '明确呼吸、循环、消化各章节掌握/熟悉/了解三级要求，建议期末复习全程对照。',
+            downloadUrl: '' // 教师可在此填入真实下载链接，如 'https://...'
+          },
+          {
+            id: 'res2',
+            category: '教学课件',
+            title: '第二章第3节：原发性高血压（眩晕）中西医结合诊疗_课堂PPT精简版.pdf',
+            updated: '2026-11-22',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            summary: '包含高血压危险分层、五大类降压药特点及肝阳上亢/痰湿中阻/阴虚阳亢思维导图。',
+            downloadUrl: ''
+          },
+          {
+            id: 'res3',
+            category: '脱敏病案',
+            title: '附属医院典型脱敏教学病案集（呼吸与循环篇·共6例）.pdf',
+            updated: '2026-11-21',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            summary: '所有病例均已隐去患者个人信息，附带舌象描述、辅助检查数据及课堂讨论思考题。',
+            downloadUrl: ''
+          },
+          {
+            id: 'res4',
+            category: '练习题库',
+            title: '执业医师 A2/A3 型病例题库（呼吸与循环专项练习）.docx',
+            updated: '2026-11-20',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            summary: '配套本周自测任务，附参考答案与辨证失误高频提示。',
+            downloadUrl: ''
+          }
+        ],
+        // 4. 公开班级通知与见习提醒
+        notices: [
+          {
+            id: 'n1',
+            tag: '重要提醒',
+            date: '2026-11-23',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            title: '本周四附属医院心内科临床见习着装与纪律要求',
+            content: '请1–4班同学按学委下发的分组名单准时到长春中医药大学附属医院指定病区集合。务必穿戴整洁白大衣、佩戴胸卡并携带听诊器；见习期间严格遵守医疗隐私规范，严禁拍摄患者姓名、床号及住院病历照片。'
+          },
+          {
+            id: 'n2',
+            tag: '答疑安排',
+            date: '2026-11-23',
+            classes: ['中西医临床3班'],
+            title: '期中病案书写规范专题小班答疑通知',
+            content: '本周三晚自习（18:30–19:00）在致知楼 208 开展病案书写与方药加减专题答疑，欢迎3班及其他班级有需要的同学携带近期作业前来交流。'
+          },
+          {
+            id: 'n3',
+            tag: '资料上新',
+            date: '2026-11-22',
+            classes: ['中西医临床1班', '中西医临床2班', '中西医临床3班', '中西医临床4班'],
+            title: '《原发性高血压（眩晕）》预习课件与脱敏病案已更新',
+            content: '下周重点讲解高血压中西医结合诊治，请同学们在“公开课件与资料”栏提前下载精简版PPT与思维导图预习。'
+          }
+        ]
+      };
+      // =========================================================================
 
-      function loadState() {
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return getDefaultState();
-          const parsed = JSON.parse(raw);
-          return Object.assign(getDefaultState(), parsed);
-        } catch (e) {
-          return getDefaultState();
-        }
-      }
-
-      let state = loadState();
-
-      function saveState() {
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        } catch (e) {
-          // Ignore storage quota / sandbox restrictions gracefully
-        }
-      }
-
-      // Utility: HTML escape
-      function esc(str) {
-        if (str === null || str === undefined) return '';
-        return String(str)
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;');
-      }
-
-      // Utility: Toast notification
-      function showToast(message, type = 'success') {
-        const container = document.getElementById('toastContainer');
-        const el = document.createElement('div');
-        const colors = type === 'error'
-          ? 'bg-rose-600 text-white'
-          : type === 'warning'
-            ? 'bg-amber-600 text-white'
-            : 'bg-slate-900 text-white';
-        el.className = `${colors} px-4 py-2.5 rounded-xl shadow-lg text-xs font-medium flex items-center gap-2 pointer-events-auto animate-view`;
-        el.textContent = message;
-        container.appendChild(el);
-        setTimeout(() => {
-          el.style.opacity = '0';
-          el.style.transition = 'opacity 0.25s ease';
-          setTimeout(() => el.remove(), 260);
-        }, 2600);
-      }
-
-      // Utility: Copy to clipboard with fallback
-      function copyText(text, label = '已复制到剪贴板') {
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(() => showToast(label)).catch(() => fallbackCopy(text, label));
-        } else {
-          fallbackCopy(text, label);
-        }
-      }
-
-      function fallbackCopy(text, label) {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try {
-          document.execCommand('copy');
-          showToast(label);
-        } catch (e) {
-          showToast('复制失败，请手动选中复制', 'warning');
-        }
-        document.body.removeChild(ta);
-      }
-
-      // Utility: Download text file
-      function downloadTextFile(filename, content) {
-        try {
-          const blob = new Blob([content], { type: 'text/markdown;charset=utf-8' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-          showToast(`已导出 ${filename}（导出后请抽查排版与公式）`);
-        } catch (e) {
-          showToast('导出失败，请使用复制功能', 'warning');
-        }
-      }
-
-      // Modal Helpers
-      function openModal(title, bodyHtml, footerHtml) {
-        document.getElementById('modalTitle').textContent = title;
-        document.getElementById('modalBody').innerHTML = bodyHtml;
-        document.getElementById('modalFooter').innerHTML = footerHtml || '';
-        const backdrop = document.getElementById('modalBackdrop');
-        backdrop.classList.remove('hidden');
-        backdrop.classList.add('flex');
-      }
-
-      function closeModal() {
-        const backdrop = document.getElementById('modalBackdrop');
-        backdrop.classList.add('hidden');
-        backdrop.classList.remove('flex');
-      }
-
-      // AI Experts catalog from the PDF (Pages 5-9)
-      const AI_EXPERTS = [
-        { id: 'chief_designer', name: '教学设计总顾问', tag: '整体方案', color: 'indigo', desc: '贯通课标、教材、学情与评价，覆盖单课、单元和跨学科整体教学方案。', workflow: 'wf_lesson' },
-        { id: 'lesson_plan', name: '教案指导专家', tag: '教案与学案', color: 'emerald', desc: '按教材与学情写教案，补教材分析、教学过程、板书、反思及配套导学案。', workflow: 'wf_lesson' },
-        { id: 'courseware', name: '课件设计专家', tag: 'PPT结构', color: 'violet', desc: '负责课件结构规划、教案转课件、互动课件与动态演示思路。', workflow: 'wf_ppt' },
-        { id: 'objectives', name: '教学目标专家', tag: '可教可测', color: 'cyan', desc: '拆解可教可测的课时目标，配套课堂活动与达标检测，支持目标精修分层。', workflow: 'wf_lesson' },
-        { id: 'homework_tier', name: '分层作业设计专家', tag: '三层作业', color: 'amber', desc: '按基础、发展、拓展三层布置作业，标注难度和预估用时，压缩机械重复。', workflow: 'wf_homework' },
-        { id: 'error_review', name: '作业讲评专家', tag: '错因与变式', color: 'rose', desc: '从学生错题归类错因，设计讲评思路、课堂追问与变式题组。', workflow: 'wf_error' },
-        { id: 'growth_collab', name: '教研与家校专家', tag: '延伸板块', color: 'blue', desc: '覆盖公开课设计、课例研究、论文写作提纲及班会/家校沟通方案。', workflow: 'wf_research' }
-      ];
-
-      const WORKFLOWS = [
-        { id: 'wf_lesson', step: '01', name: '教案生成流', expert: 'lesson_plan', desc: '课题与教材 → 框架初稿 → 人工确认目标 → 补全过程/板书/反思' },
-        { id: 'wf_ppt', step: '02', name: '课件制作流', expert: 'courseware', desc: '教案定稿 → PPT 结构（情境引入/演示/互动/小结）→ 替换配图案例' },
-        { id: 'wf_homework', step: '03', name: '分层作业流', expert: 'homework_tier', desc: '课堂掌握情况 → 基础/发展/拓展三层练习 → 标注难度与预估用时' },
-        { id: 'wf_error', step: '04', name: '错题讲评流', expert: 'error_review', desc: '典型错题归类 → 错因诊断 → 讲评追问与变式题组' },
-        { id: 'wf_research', step: '05', name: '教研与材料流', expert: 'growth_collab', desc: '复用已有教案/学情 → 公开课设计、课例研究或论文提纲' }
-      ];
-
-      const ASSET_ZONES = {
-        textbook: { name: '教材与课标区', desc: '电子课本、课标对应章节、单元说明、学校统一教案模板', badge: 'bg-indigo-50 text-indigo-700' },
-        history: { name: '历史课件与教案区', desc: '以前用过的 PPT、教案、导学案，供 AI 参考保持个人教学风格', badge: 'bg-cyan-50 text-cyan-700' },
-        feedback: { name: '学情与反馈区', desc: '作业问题、课堂观察、典型错题、薄弱点归类（上传前请匿名脱敏）', badge: 'bg-amber-50 text-amber-700' },
-        output: { name: '产出文件区', desc: '新生成的教案、课件、学习单、作业、反思模板，按课题与日期归档', badge: 'bg-emerald-50 text-emerald-700' }
+      const state = {
+        tab: 'overview',
+        selectedClass: 'all',
+        search: '',
+        checkedTasks: {} // 仅在学生自己浏览器记录作业自查勾选，不影响他人
       };
 
-      // Generate rich, context-aware structured draft based on project config + attached assets + workflow
-      function buildExpertDraft() {
-        const w = state.expertWorkspace;
-        const cfg = state.config;
-        const expert = AI_EXPERTS.find(e => e.id === w.selectedExpert) || AI_EXPERTS[1];
-        const attachedNames = state.assets
-          .filter(a => w.attachedAssetIds.includes(a.id))
-          .map(a => `《${a.title}》`);
-        const refLine = attachedNames.length > 0 ? attachedNames.join('、') : '（未勾选参考资料，建议从资产库挂载教材与学情）';
-        const topic = w.topic.trim() || '未命名课题';
-        const chapter = w.chapter.trim() || cfg.textbookVersion;
-        const extra = w.extraNotes.trim() || '结合4个班本科生临床思维特点推进，突出病证结合';
+      try {
+        const saved = localStorage.getItem('ccucm_student_checks_v1');
+        if (saved) state.checkedTasks = JSON.parse(saved);
+      } catch (e) {}
 
-        const header = [
-          `# 【${expert.name}】${topic}`,
-          `> 继承项目：${cfg.projectName} | 学段学科：${cfg.grade}${cfg.subject} | 教材版本：${cfg.textbookVersion}`,
-          `> 挂载资产库参考：${refLine}`,
-          `> 生效项目指令：${cfg.globalInstructions}`,
-          ''
-        ].join('\n');
-
-        if (w.selectedWorkflow === 'wf_ppt' || w.selectedExpert === 'courseware') {
-          return header + [
-            `## 一、课件结构规划（共 12 页建议框架）`,
-            `- **P1 封面页**：课题《${topic}》 + ${chapter} + 情境主视觉图（建议替换为本班生活案例图）`,
-            `- **P2-P3 情境引入页**：围绕“${extra}”设计生活化问题链，激发认知冲突`,
-            `- **P4-P6 新知探究与动态演示**：分步呈现推导过程，设置“猜想 → 验证 → 归纳”三步动画触发`,
-            `- **P7-P8 易错点辨析互动页**：左右分栏对比“常见错解 vs 正确思路”，插入课堂随机点名/小组投票互动`,
-            `- **P9-P10 阶梯例题与变式**：例1（基础达标）→ 例2（逆向/变形应用），预留白板批注区`,
-            `- **P11 课堂小结与板书联动**：思维导图收束核心方法与口诀`,
-            `- **P12 分层作业布置页**：展示基础/发展/拓展三层任务及预估用时`,
-            '',
-            `## 二、人工终审与替换清单`,
-            `1. 导出 PPT 后请抽查公式字体、编号与几何图形对齐情况；`,
-            `2. 将 P2 情境图和 P7 错例替换为本班真实匿名化作业截图。`
-          ].join('\n');
-        }
-
-        if (w.selectedWorkflow === 'wf_homework' || w.selectedExpert === 'homework_tier') {
-          return header + [
-            `## 分层作业设计单：《${topic}》`,
-            `*设计原则：保留核心训练点，压缩机械重复题；面向${cfg.classes.join('、')}学生。*`,
-            '',
-            `### 1. 基础层（必做｜难度 ★☆☆｜预估用时 10 分钟）`,
-            `- **目标**：巩固基本概念与标准步骤，确保全班 90% 以上独立达标。`,
-            `- **题1（基础识记）**：列出本病西医诊断标准、核心分型及中医主要证候与代表方剂（对照执业医师大纲）。`,
-            `- **题2（单证辨析）**：完成 3 道 A2 型标准病例选择题，圈出决定西医分型与中医辨证的关键症状、舌脉。`,
-            '',
-            `### 2. 发展层（建议做｜难度 ★★☆｜预估用时 10 分钟）`,
-            `- **目标**：突破“${extra}”，提升变形识别与综合运用能力。`,
-            `- **题3（病案辨证）**：阅读 1 则附属医院脱敏病案，独立写出西医诊断依据、中医辨证分析、治法与方药加减（标注君臣佐使）。`,
-            `- **题4（中西协同）**：针对该患者合并用药情况，简述西药规范方案与中药联合减毒增效的注意事项。`,
-            '',
-            `### 3. 拓展层（选做｜难度 ★★★｜预估用时 8 分钟）`,
-            `- **目标**：培养逆向思维与整体代换意识，供学有余力学生挑战。`,
-            `- **题5（临床循证拓展）**：检索 1 篇近 3 年本病中西医结合诊疗指南或临床研究摘要，对比教材方案提出 2 条临床思考。`
-          ].join('\n');
-        }
-
-        if (w.selectedWorkflow === 'wf_error' || w.selectedExpert === 'error_review') {
-          const weakList = state.studentRecords.map(s => `- ${s.weakPoint}（${state.privacyAnonymized ? s.anonId : s.realName}，${s.tier}）`).join('\n');
-          return header + [
-            `## 错题讲评与变式训练方案：《${topic}》`,
-            `### 一、学情错因归类（已自动关联学情记录）`,
-            weakList,
-            '',
-            `### 二、课堂讲评三步思路（不只讲答案，更讲思路）`,
-            `1. **错例回放与自我诊断（3分钟）**：投影匿名化典型错解，让学生先用红笔圈出“第一步出错的位置”。`,
-            `2. **核心追问设计（8分钟）**：`,
-            `   - 追问①：这份病案中哪两个核心症状和舌脉决定了本证型？如果漏看舌苔会误辨成哪一证？`,
-            `   - 追问②：在西医规范治疗基础上，中医方药加减如何针对患者兼证体现“同病异治”？`,
-            `3. **当堂变式题组（10分钟）**：`,
-            `   - **变式1（同病异证）**：保持西医诊断不变，更换舌脉与兼证，检验学生辨证切换能力；`,
-            `   - **变式2（错案会诊）**：给出一段“辨证与选方脱节”的错案，让4个班小组当“主治医师”写出纠错批注；`,
-            `   - **变式3（执医真题迁移）**：结合上一章相关鉴别病种设计 1 组 A3/A4 型串联病例题，实现举一反三。`
-          ].join('\n');
-        }
-
-        if (w.selectedWorkflow === 'wf_research' || w.selectedExpert === 'growth_collab') {
-          return header + [
-            `## 教研与专业成长材料提纲：《${topic}》课例研究 / 公开课设计`,
-            `### 一、研究主题与背景`,
-            `- 聚焦问题：在 ${cfg.grade}${cfg.subject}（${cfg.textbookVersion}）教学中，如何通过“情境具象化 + 分层任务”破解“${extra}”。`,
-            `### 二、公开课磨课亮点设计`,
-            `1. **导入创新**：依托资产库历史课件思路，采用可视化拼图/生活案例替代机械复习；`,
-            `2. **学情精准嵌入**：基于本班匿名化作业数据，在课堂中段设置“错因辨析诊所”；`,
-            `3. **评价闭环**：课末 3 分钟达标检测 + 课后三层分层作业联动。`,
-            `### 三、论文/教研分享提纲`,
-            `1. 问题缘起（附匿名化错误率统计）→ 2. 课标依据与教学重构 → 3. 课堂实录关键片段 → 4. 教学反思与迁移建议。`
-          ].join('\n');
-        }
-
-        // Default: Lesson plan / Chief designer / Objectives
-        return header + [
-          `## 一、教材分析与学情判断（请老师先核对确认）`,
-          `- **教材定位**：本节属于 ${chapter}，承接前面运算基础，是后续知识体系的关键节点。`,
-          `- **学情判断**：结合本班近期记录，中等生能掌握基本推导，但在“${extra}”处易失误，需加强辨析。`,
-          '',
-          `## 二、可教可测的课时目标`,
-          `1. **知识与技能**：能准确复述核心概念/公式结构，独立完成 85% 以上基础运算与辨析；`,
-          `2. **过程与方法**：经历“情境感知 → 归纳猜想 → 逻辑验证”过程，体会数形结合与转化思想；`,
-          `3. **达标检测点**：课堂结束前完成 3 道分层微测，正确率目标 ≥ 85%。`,
-          '',
-          `## 三、教学过程框架（45 分钟）`,
-          `- **环节1 脱敏病案导入（8分钟）**：呈现附属医院脱敏真实病案（主诉、现病史、检查及舌脉），引发中西医双轨思考；`,
-          `- **环节2 中西医理论精讲（25分钟）**：系统梳理西医病因机制、诊断分级与规范用药，以及中医病因病机与核心证型演变；`,
-          `- **环节3 辨证论治与难点辨析（30分钟）**：围绕“${extra}”，对比易混淆证型与方药加减，融入“大医精诚”课程思政；`,
-          `- **环节4 病案实训与随堂检测（20分钟）**：4个班分组完成 A2/A3 型病例题并匿名投影点评；`,
-          `- **环节5 思维导图小结与分层任务（7分钟）**：归纳“病证结合”诊疗主线，布置基础/病案/循证三层课后任务。`,
-          '',
-          `## 四、板书设计与课后反思预留`,
-          `- **主板书**：左侧西医诊断标准与规范治疗，右侧中医核心证型与代表方药对照图；**副板书**：重点鉴别名词与临床警示。`,
-          `- **课后反思**：[待授课后结合课堂教学模块记录补全]`
-        ].join('\n');
+      function saveChecks() {
+        try {
+          localStorage.setItem('ccucm_student_checks_v1', JSON.stringify(state.checkedTasks));
+        } catch (e) {}
       }
 
-      // Compute summary metrics
-      function getStats() {
-        const pendingReminders = state.reminders.filter(r => !r.done).length;
-        const pendingGrades = state.homeworkBatches.reduce((acc, b) => acc + (Number(b.pendingGrade) || 0), 0);
-        const pendingReviews = state.homeworkBatches.filter(b => b.needsReview).length;
-        const totalMB = state.assets.reduce((acc, a) => acc + (Number(a.sizeMB) || 0), 0);
-        const checkedAcc = state.acceptanceChecklist.filter(i => i.checked).length;
-        return {
-          courseCount: state.courses.length,
-          pendingReminders,
-          prepCount: state.prepLessons.length,
-          pendingGrades,
-          pendingReviews,
-          assetCount: state.assets.length,
-          totalMB,
-          checkedAcc,
-          totalAcc: state.acceptanceChecklist.length
-        };
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
       }
 
-      function getGreeting() {
-        const h = new Date().getHours();
-        if (h < 12) return '早上好！今天也是充实的一天！';
-        if (h < 18) return '下午好！备课与教学节奏稳步推进中！';
-        return '晚上好！辛苦一天了，记得适时休息与复盘！';
+      function matchClass(itemClasses) {
+        if (state.selectedClass === 'all') return true;
+        return Array.isArray(itemClasses) && itemClasses.includes(state.selectedClass);
       }
 
-      // Update global chrome (sidebar badges, project info, privacy button)
-      function updateChrome() {
-        const stats = getStats();
-        document.getElementById('sidebarProjectName').textContent = state.config.projectName;
-        document.getElementById('sidebarProjectMeta').textContent = `${state.config.textbookVersion} · ${state.config.classes.length}个班`;
-        document.getElementById('navBadgeCourses').textContent = stats.courseCount;
-        document.getElementById('navBadgePrep').textContent = stats.prepCount;
-        document.getElementById('navBadgeHomework').textContent = stats.pendingGrades;
-        document.getElementById('navBadgeAssets').textContent = stats.assetCount;
-        document.getElementById('navBadgeAcceptance').textContent = `${stats.checkedAcc}/${stats.totalAcc}`;
-
-        const gb = (stats.totalMB / 1024).toFixed(2);
-        const pct = Math.min(100, Math.max(3, Math.round((stats.totalMB / 5120) * 100)));
-        document.getElementById('storageText').textContent = `${gb} GB / 5 GB`;
-        document.getElementById('storageBar').style.width = `${pct}%`;
-
-        // Privacy button state
-        const pBtn = document.getElementById('togglePrivacyBtn');
-        const pLabel = document.getElementById('privacyBtnLabel');
-        if (state.privacyAnonymized) {
-          pBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border bg-emerald-50 border-emerald-200 text-emerald-700 hover:bg-emerald-100 transition';
-          pLabel.textContent = '隐私脱敏：已开启';
-        } else {
-          pBtn.className = 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100 transition';
-          pLabel.textContent = '隐私脱敏：已关闭';
-        }
-
-        // Active sidebar nav
-        document.querySelectorAll('#sidebarNav .nav-item').forEach(btn => {
-          btn.classList.toggle('active', btn.dataset.view === state.activeView);
-        });
-
-        // Header titles
-        const viewMeta = {
-          dashboard: ['我的教师工作台', '把专家、教材、学情与产出文件集中到一处，备课不用每次重头交代背景'],
-          courses: ['今日课程与提醒', '查看当天课表、授课节奏与重点待办提醒'],
-          prep: ['备课中心', '集中管理教案、课件、板书素材，支持分段产出与人工终审'],
-          classroom: ['课堂教学记录', '记录课堂安排、临场节奏调整与板书要点'],
-          homework: ['作业反馈与批改', '跟进提交进度、待批改数量与错题讲评衔接'],
-          classAffairs: ['班级事务与学务沟通', '统一处理4个班教学通知、见习安排、班导答疑与话术模板'],
-          assets: ['项目资产库（4大分区）', '按教材课标、历史资料、学情反馈、产出文件分层沉淀，越用越顺手'],
-          students: ['学情记录与观察', '记录班级分层表现与薄弱点，支持一键匿名化脱敏保护隐私'],
-          review: ['每周复盘', '沉淀本周教学问题、经验亮点与下周改进计划，随时回看历史'],
-          experts: ['AI 教学专家与 5 类工作流', '自动继承项目指令与资产库资料，支持分段产出、人工确认与导出'],
-          settings: ['项目配置、指令与定时任务', '先讲清楚身份与习惯，让整个工作台贴合你的学科与教学节奏'],
-          acceptance: ['上线前验收与合规边界', '按 5 项验收清单自查工作台，牢记初稿把关与学生隐私边界']
-        };
-        const [title, sub] = viewMeta[state.activeView] || viewMeta.dashboard;
-        document.getElementById('headerTitle').textContent = title;
-        document.getElementById('headerSubtitle').textContent = sub;
-
-        // Search banner
-        const banner = document.getElementById('searchBanner');
-        if (state.searchQuery.trim()) {
-          banner.classList.remove('hidden');
-          document.getElementById('searchBannerText').textContent = `当前正在全局搜索：“${state.searchQuery.trim()}”`;
-        } else {
-          banner.classList.add('hidden');
-        }
+      function matchSearch(text) {
+        const q = state.search.trim().toLowerCase();
+        if (!q) return true;
+        return String(text || '').toLowerCase().includes(q);
       }
 
-      // Render Global Search View if searchQuery is non-empty
-      function renderSearchResults() {
-        const q = state.searchQuery.trim().toLowerCase();
-        const matchCourses = state.courses.filter(c => `${c.topic} ${c.className} ${c.note}`.toLowerCase().includes(q));
-        const matchPrep = state.prepLessons.filter(p => `${p.title} ${p.chapter} ${p.content}`.toLowerCase().includes(q));
-        const matchAssets = state.assets.filter(a => `${a.title} ${a.summary} ${a.docType}`.toLowerCase().includes(q));
-        const matchHw = state.homeworkBatches.filter(h => `${h.title} ${h.errorSummary} ${h.className}`.toLowerCase().includes(q));
-        const total = matchCourses.length + matchPrep.length + matchAssets.length + matchHw.length;
+      function formatClassBadge(classes) {
+        if (!classes || classes.length === 4) return '1–4班全体';
+        return classes.map(c => c.replace('中西医临床', '')).join('、');
+      }
 
+      function openDetail(title, htmlBody) {
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalContent').innerHTML = htmlBody;
+        const m = document.getElementById('detailModal');
+        m.classList.remove('hidden');
+        m.classList.add('flex');
+      }
+
+      function closeDetail() {
+        const m = document.getElementById('detailModal');
+        m.classList.add('hidden');
+        m.classList.remove('flex');
+      }
+
+      function renderScheduleCard(s) {
+        const typeColor = s.type === '临床见习'
+          ? 'bg-rose-50 text-rose-700 border-rose-200'
+          : s.type === '病案讨论'
+            ? 'bg-amber-50 text-amber-700 border-amber-200'
+            : 'bg-indigo-50 text-indigo-700 border-indigo-200';
         return `
-          <div class="animate-view space-y-5">
-            <div class="bg-white rounded-2xl border border-slate-200 p-5">
-              <h2 class="text-base font-bold text-slate-900">搜索结果（共 ${total} 条）</h2>
-              ${total === 0 ? '<p class="text-sm text-slate-500 mt-3">没有找到匹配的内容，请尝试更换关键词（如“高血压”、“胸痹”、“中西医临床1班”）。</p>' : ''}
-              <div class="mt-4 space-y-4">
-                ${matchCourses.length ? `
-                  <div>
-                    <div class="text-xs font-semibold text-indigo-600 mb-2">今日课程 (${matchCourses.length})</div>
-                    <div class="space-y-2">${matchCourses.map(c => `<div data-goto="courses" class="p-3 rounded-xl bg-slate-50 hover:bg-indigo-50/50 cursor-pointer border border-slate-100"><div class="text-sm font-semibold text-slate-800">${esc(c.topic)}</div><div class="text-xs text-slate-500 mt-0.5">${esc(c.time)} · ${esc(c.className)} · ${esc(c.note)}</div></div>`).join('')}</div>
-                  </div>` : ''}
-                ${matchPrep.length ? `
-                  <div>
-                    <div class="text-xs font-semibold text-emerald-600 mb-2">备课中心 (${matchPrep.length})</div>
-                    <div class="space-y-2">${matchPrep.map(p => `<div data-goto="prep" class="p-3 rounded-xl bg-slate-50 hover:bg-emerald-50/50 cursor-pointer border border-slate-100"><div class="text-sm font-semibold text-slate-800">${esc(p.title)}</div><div class="text-xs text-slate-500 mt-0.5">${esc(p.chapter)} · ${esc(p.status)}</div></div>`).join('')}</div>
-                  </div>` : ''}
-                ${matchAssets.length ? `
-                  <div>
-                    <div class="text-xs font-semibold text-violet-600 mb-2">项目资产库 (${matchAssets.length})</div>
-                    <div class="space-y-2">${matchAssets.map(a => `<div data-goto="assets" class="p-3 rounded-xl bg-slate-50 hover:bg-violet-50/50 cursor-pointer border border-slate-100"><div class="text-sm font-semibold text-slate-800">${esc(a.title)}</div><div class="text-xs text-slate-500 mt-0.5">${esc(ASSET_ZONES[a.zone].name)} · ${esc(a.summary)}</div></div>`).join('')}</div>
-                  </div>` : ''}
-                ${matchHw.length ? `
-                  <div>
-                    <div class="text-xs font-semibold text-amber-600 mb-2">作业反馈 (${matchHw.length})</div>
-                    <div class="space-y-2">${matchHw.map(h => `<div data-goto="homework" class="p-3 rounded-xl bg-slate-50 hover:bg-amber-50/50 cursor-pointer border border-slate-100"><div class="text-sm font-semibold text-slate-800">${esc(h.title)}（${esc(h.className)}）</div><div class="text-xs text-slate-500 mt-0.5">待批改 ${h.pendingGrade} 份 · ${esc(h.errorSummary)}</div></div>`).join('')}</div>
-                  </div>` : ''}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 1: Dashboard
-      function renderDashboard() {
-        const stats = getStats();
-        const isMvp = state.dashboardMode === 'mvp4';
-
-        const cards = [
-          {
-            id: 'courses', mvp: true, title: '今日课程',
-            metric: `${stats.courseCount} 节课 / ${stats.pendingReminders} 项提醒`,
-            desc: '快速查看当天课表、时间与重点提醒',
-            color: 'indigo',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>'
-          },
-          {
-            id: 'prep', mvp: true, title: '备课中心',
-            metric: `本周 ${stats.prepCount} 课时`,
-            desc: '集中管理教案、课件、板书素材与分段产出',
-            color: 'emerald',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>'
-          },
-          {
-            id: 'homework', mvp: true, title: '作业反馈',
-            metric: `${stats.pendingGrades} 份待批改 / ${stats.pendingReviews} 份待讲评`,
-            desc: '跟进提交情况、批改进度与错题讲评',
-            color: 'amber',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>'
-          },
-          {
-            id: 'classAffairs', mvp: true, title: '班级事务',
-            metric: `${state.classAffairs.length} 项日常事务`,
-            desc: '处理4个班见习通知、班导答疑与学务安排',
-            color: 'pink',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>'
-          },
-          {
-            id: 'assets', mvp: false, title: '教学资源库',
-            metric: `${stats.assetCount} 份分层资料`,
-            desc: '教材课标、历史课件、学情反馈、产出文件 4 分区',
-            color: 'violet',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>'
-          },
-          {
-            id: 'classroom', mvp: false, title: '课堂教学',
-            metric: `${state.classroomLogs.length} 条课堂记录`,
-            desc: '记录课堂临时调整、互动反馈与板书亮点',
-            color: 'cyan',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>'
-          },
-          {
-            id: 'students', mvp: false, title: '学情记录',
-            metric: `${state.studentRecords.length} 条重点观察`,
-            desc: '记录学生分层表现与薄弱点，一键脱敏',
-            color: 'teal',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>'
-          },
-          {
-            id: 'review', mvp: false, title: '每周复盘',
-            metric: `${state.weeklyReviews.length} 周历史沉淀`,
-            desc: '回顾本周教学问题、总结经验并制定下周计划',
-            color: 'blue',
-            icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>'
-          }
-        ];
-
-        const colorMap = {
-          indigo: 'bg-indigo-50 text-indigo-600',
-          emerald: 'bg-emerald-50 text-emerald-600',
-          amber: 'bg-amber-50 text-amber-600',
-          pink: 'bg-pink-50 text-pink-600',
-          violet: 'bg-violet-50 text-violet-600',
-          cyan: 'bg-cyan-50 text-cyan-600',
-          teal: 'bg-teal-50 text-teal-600',
-          blue: 'bg-blue-50 text-blue-600'
-        };
-
-        const visibleCards = isMvp ? cards.filter(c => c.mvp) : cards;
-
-        return `
-          <div class="animate-view space-y-6">
-            <!-- Hero Greeting Banner (Mirroring Page 2) -->
-            <div class="rounded-2xl bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 p-5 sm:p-6 text-white shadow-sm relative overflow-hidden">
-              <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                  <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 text-xs font-medium mb-2.5">
-                    <span>☀️</span>
-                    <span>${esc(getGreeting())}</span>
-                  </div>
-                  <h2 class="text-xl sm:text-2xl font-bold tracking-tight">${esc(state.config.projectName)}</h2>
-                  <p class="text-xs sm:text-sm text-indigo-100 mt-1.5 max-w-2xl">
-                    当前身份：${esc(state.config.teacherRole)} · ${esc(state.config.classes.join('、'))} · ${esc(state.config.textbookVersion)}
-                  </p>
-                </div>
-                <div class="flex flex-wrap items-center gap-2 shrink-0">
-                  <div class="inline-flex rounded-xl bg-white/15 p-1 text-xs">
-                    <button id="modeMvpBtn" class="px-3 py-1.5 rounded-lg font-medium transition ${isMvp ? 'bg-white text-indigo-700 shadow-xs' : 'text-white/90 hover:text-white'}">4 高频区（基础版）</button>
-                    <button id="modeFullBtn" class="px-3 py-1.5 rounded-lg font-medium transition ${!isMvp ? 'bg-white text-indigo-700 shadow-xs' : 'text-white/90 hover:text-white'}">8 大模块（完整版）</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Core Module Cards Grid -->
-            <section>
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-bold text-slate-800">${isMvp ? '第一版先跑通 4 个高频区' : '教师日常 8 大核心模块'}</h3>
-                <span class="text-xs text-slate-500">点击卡片直接进入对应工作区</span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                ${visibleCards.map(c => `
-                  <button data-goto="${c.id}" class="card-hover text-left bg-white rounded-2xl border border-slate-200/90 p-4 flex flex-col justify-between group">
-                    <div class="flex items-start justify-between gap-3">
-                      <div class="w-10 h-10 rounded-xl ${colorMap[c.color]} flex items-center justify-center shrink-0">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">${c.icon}</svg>
-                      </div>
-                      <svg class="w-4 h-4 text-slate-300 group-hover:text-indigo-500 group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </div>
-                    <div class="mt-3.5">
-                      <div class="text-sm font-bold text-slate-900">${c.title}</div>
-                      <div class="text-xs font-semibold text-indigo-600 mt-1">${c.metric}</div>
-                      <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${c.desc}</p>
-                    </div>
-                  </button>
-                `).join('')}
-              </div>
-            </section>
-
-            <!-- 5 Teaching Workflows Quick Launch (Page 15) -->
-            <section class="bg-white rounded-2xl border border-slate-200 p-5">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                <div>
-                  <h3 class="text-sm font-bold text-slate-900">教师日常 5 类 AI 分段工作流</h3>
-                  <p class="text-xs text-slate-500 mt-0.5">自动带入项目指令与资产库资料，建议分段产出、人工确认后再进下一步</p>
-                </div>
-                <button data-goto="experts" class="text-xs font-semibold text-indigo-600 hover:underline self-start sm:self-auto">查看全部 7 位专家 →</button>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-                ${WORKFLOWS.map(wf => `
-                  <button data-launch-wf="${wf.id}" class="text-left p-3.5 rounded-xl bg-slate-50 hover:bg-indigo-50/70 border border-slate-200/70 hover:border-indigo-200 transition group">
-                    <div class="flex items-center justify-between">
-                      <span class="text-[11px] font-bold text-indigo-600 bg-indigo-100/80 px-2 py-0.5 rounded-md">流程 ${wf.step}</span>
-                      <span class="text-xs text-slate-400 group-hover:text-indigo-600">启动 →</span>
-                    </div>
-                    <div class="text-sm font-bold text-slate-800 mt-2.5">${wf.name}</div>
-                    <p class="text-[11px] text-slate-500 mt-1 leading-relaxed">${wf.desc}</p>
-                  </button>
-                `).join('')}
-              </div>
-            </section>
-
-            <!-- Two-Column Today Snapshot -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-              <!-- Today's Courses -->
-              <div class="bg-white rounded-2xl border border-slate-200 p-5">
-                <div class="flex items-center justify-between mb-3.5">
-                  <h3 class="text-sm font-bold text-slate-900">今日课表速览</h3>
-                  <button data-goto="courses" class="text-xs font-medium text-indigo-600 hover:underline">管理课表</button>
-                </div>
-                <div class="space-y-2.5">
-                  ${state.courses.map(c => `
-                    <div class="flex items-center justify-between gap-3 p-3 rounded-xl border ${c.status === 'done' ? 'bg-slate-50/70 border-slate-100 opacity-75' : 'bg-white border-slate-200/80'}">
-                      <div class="min-w-0">
-                        <div class="flex items-center gap-2">
-                          <span class="text-xs font-semibold text-indigo-600">${esc(c.time)}</span>
-                          <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${esc(c.className)}</span>
-                        </div>
-                        <div class="text-sm font-semibold text-slate-800 mt-1 truncate ${c.status === 'done' ? 'line-through text-slate-500' : ''}">${esc(c.topic)}</div>
-                      </div>
-                      <button data-toggle-course="${c.id}" class="shrink-0 px-2.5 py-1 rounded-lg text-xs font-medium border transition ${c.status === 'done' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-indigo-50 hover:text-indigo-700'}">
-                        ${c.status === 'done' ? '已授课' : '标记完成'}
-                      </button>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-
-              <!-- Today's Reminders + Pending Homework -->
-              <div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col justify-between gap-4">
-                <div>
-                  <div class="flex items-center justify-between mb-3.5">
-                    <h3 class="text-sm font-bold text-slate-900">今日重点提醒</h3>
-                    <button id="dashAddReminderBtn" class="text-xs font-medium text-indigo-600 hover:underline">+ 新增提醒</button>
-                  </div>
-                  <div class="space-y-2">
-                    ${state.reminders.map(r => `
-                      <label class="flex items-start gap-2.5 p-2.5 rounded-xl hover:bg-slate-50 cursor-pointer border border-slate-100">
-                        <input type="checkbox" data-toggle-reminder="${r.id}" ${r.done ? 'checked' : ''} class="mt-0.5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
-                        <span class="text-xs sm:text-sm ${r.done ? 'line-through text-slate-400' : 'text-slate-700'}">${esc(r.text)}</span>
-                      </label>
-                    `).join('')}
-                  </div>
-                </div>
-
-                <div class="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200/70 flex items-center justify-between gap-3">
-                  <div>
-                    <div class="text-xs font-bold text-amber-900">作业批改与错题讲评提醒</div>
-                    <div class="text-xs text-amber-800 mt-0.5">当前还有 <strong>${stats.pendingGrades}</strong> 份待批改、<strong>${stats.pendingReviews}</strong> 份待整理错题讲评</div>
-                  </div>
-                  <button data-goto="homework" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold transition">去处理</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 2: Courses & Reminders
-      function renderCourses() {
-        return `
-          <div class="animate-view space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 class="text-base font-bold text-slate-900">今日课表安排（共 ${state.courses.length} 节）</h2>
-                <p class="text-xs text-slate-500 mt-0.5">授课完成后可一键标记，或直接跳转进入课堂教学记录临场调整</p>
-              </div>
-              <button id="addCourseBtn" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">+ 添加课程</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              ${state.courses.map(c => `
-                <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col justify-between gap-3">
-                  <div>
-                    <div class="flex items-center justify-between gap-2">
-                      <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">${esc(c.time)}</span>
-                      <span class="text-xs text-slate-500">${esc(c.className)} · ${esc(c.room)}</span>
-                    </div>
-                    <h3 class="text-base font-bold text-slate-900 mt-2.5 ${c.status === 'done' ? 'line-through text-slate-400' : ''}">${esc(c.topic)}</h3>
-                    <p class="text-xs text-slate-600 mt-1.5 bg-slate-50 p-2.5 rounded-lg">授课提示：${esc(c.note || '无')}</p>
-                  </div>
-                  <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-                    <button data-toggle-course="${c.id}" class="text-xs font-semibold ${c.status === 'done' ? 'text-emerald-600' : 'text-indigo-600'} hover:underline">
-                      ${c.status === 'done' ? '✓ 已完成授课（点击撤销）' : '标记为已授课'}
-                    </button>
-                    <div class="flex items-center gap-3">
-                      <button data-prep-from-course="${esc(c.topic)}" class="text-xs font-medium text-violet-600 hover:underline">AI 备这节课</button>
-                      <button data-del-course="${c.id}" class="text-xs text-slate-400 hover:text-rose-600">删除</button>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-
-            <!-- Reminders Card -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-5">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-sm font-bold text-slate-900">今日事务与待办提醒</h3>
-                <button id="addReminderBtn" class="text-xs font-semibold text-indigo-600 hover:underline">+ 添加提醒</button>
-              </div>
-              <div class="space-y-2">
-                ${state.reminders.map(r => `
-                  <div class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-100 bg-slate-50/60">
-                    <label class="flex items-center gap-2.5 cursor-pointer flex-1">
-                      <input type="checkbox" data-toggle-reminder="${r.id}" ${r.done ? 'checked' : ''} class="rounded border-slate-300 text-indigo-600" />
-                      <span class="text-sm ${r.done ? 'line-through text-slate-400' : 'text-slate-800'}">${esc(r.text)}</span>
-                    </label>
-                    <button data-del-reminder="${r.id}" class="text-xs text-slate-400 hover:text-rose-600">删除</button>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 3: Prep Center
-      function renderPrep() {
-        const stageLabels = ['', '1. 教案框架初稿', '2. 教案人工定稿', '3. 课件结构初稿', '4. 分层作业与学习单齐备'];
-        return `
-          <div class="animate-view space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 class="text-base font-bold text-slate-900">本周备课课时管理（${state.prepLessons.length} 课时）</h2>
-                <p class="text-xs text-slate-500 mt-0.5">遵循“先教案 → 人工确认 → 再课件 → 配分层作业”的分段产出节奏</p>
-              </div>
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 hover:border-indigo-200 transition">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
               <div class="flex items-center gap-2">
-                <button id="addPrepBtn" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold transition">+ 新建备课条目</button>
-                <button data-launch-wf="wf_lesson" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">用 AI 专家生成教案</button>
+                <span class="text-xs font-bold px-2.5 py-0.5 rounded-lg bg-slate-900 text-white">${esc(s.day)} ${esc(s.time)}</span>
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full border ${typeColor}">${esc(s.type)}</span>
               </div>
+              <span class="text-xs font-medium text-indigo-600">${esc(formatClassBadge(s.classes))}</span>
             </div>
-
-            <div class="space-y-4">
-              ${state.prepLessons.map(p => `
-                <div class="bg-white rounded-2xl border border-slate-200 p-5">
-                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <div class="flex items-center gap-2 flex-wrap">
-                        <h3 class="text-base font-bold text-slate-900">${esc(p.title)}</h3>
-                        <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700">${esc(p.status)}</span>
-                      </div>
-                      <div class="text-xs text-slate-500 mt-1">${esc(p.chapter)} · ${esc(p.grade)} · 更新于 ${esc(p.updatedAt)}</div>
-                    </div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                      <button data-advance-prep="${p.id}" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition">推进下一阶段 →</button>
-                      <button data-to-ppt="${esc(p.title)}" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-violet-50 text-violet-700 hover:bg-violet-100 transition">转课件制作流</button>
-                      <button data-export-prep="${p.id}" class="px-3 py-1.5 rounded-lg text-xs font-medium border border-slate-200 text-slate-600 hover:bg-slate-50 transition">导出教案</button>
-                    </div>
-                  </div>
-
-                  <!-- 4-step segmented progress bar -->
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
-                    ${[1, 2, 3, 4].map(st => `
-                      <div class="px-3 py-2 rounded-xl text-xs font-medium border ${p.stage >= st ? 'bg-emerald-50/70 border-emerald-200 text-emerald-800' : 'bg-slate-50 border-slate-100 text-slate-400'}">
-                        ${p.stage >= st ? '✓ ' : ''}${stageLabels[st]}
-                      </div>
-                    `).join('')}
-                  </div>
-
-                  <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                      <div class="font-bold text-slate-700 mb-1">课时目标（可教可测）</div>
-                      <p class="text-slate-600 leading-relaxed whitespace-pre-line">${esc(p.objectives)}</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                      <div class="font-bold text-slate-700 mb-1">教学过程与板书要点</div>
-                      <p class="text-slate-600 leading-relaxed whitespace-pre-line">${esc(p.content)}</p>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
+            <h4 class="text-sm font-bold text-slate-900 mt-2.5">${esc(s.title)}</h4>
+            <div class="text-xs text-slate-500 mt-1">地点：${esc(s.location)}</div>
+            <div class="mt-2.5 p-2.5 rounded-xl bg-slate-50 text-xs text-slate-600 leading-relaxed">
+              <span class="font-semibold text-slate-700">预习与携带提示：</span>${esc(s.prepTip)}
             </div>
           </div>
         `;
       }
 
-      // VIEW 4: Classroom Teaching
-      function renderClassroom() {
+      function renderHomeworkCard(hw) {
         return `
-          <div class="animate-view space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-3">
+          <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h2 class="text-base font-bold text-slate-900">课堂教学与临场调整记录</h2>
-                <p class="text-xs text-slate-500 mt-0.5">课后花 1 分钟记下临时调整与板书要点，自动成为每周复盘和下次备课的真实依据</p>
-              </div>
-              <button id="addClassroomLogBtn" class="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-semibold transition">+ 记录本节课堂</button>
-            </div>
-
-            <div class="space-y-3">
-              ${state.classroomLogs.map(log => `
-                <div class="bg-white rounded-2xl border border-slate-200 p-5">
-                  <div class="flex items-center justify-between gap-2 flex-wrap">
-                    <div class="flex items-center gap-2">
-                      <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-cyan-50 text-cyan-700">${esc(log.className)}</span>
-                      <h3 class="text-sm font-bold text-slate-900">${esc(log.lesson)}</h3>
-                    </div>
-                    <span class="text-xs text-slate-400">${esc(log.date)}</span>
-                  </div>
-                  <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                      <div class="font-bold text-slate-700 mb-1">课堂节奏与临时调整</div>
-                      <p class="text-slate-600 leading-relaxed">${esc(log.adjustment)}</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-indigo-50/40 border border-indigo-100/80">
-                      <div class="font-bold text-indigo-900 mb-1">板书与口诀沉淀</div>
-                      <p class="text-indigo-800 leading-relaxed">${esc(log.boardNote)}</p>
-                    </div>
-                  </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h4 class="text-sm font-bold text-slate-900">${esc(hw.title)}</h4>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium">${esc(formatClassBadge(hw.classes))}</span>
                 </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 5: Homework Feedback
-      function renderHomework() {
-        const stats = getStats();
-        return `
-          <div class="animate-view space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div class="bg-white rounded-2xl border border-slate-200 p-4">
-                <div class="text-xs text-slate-500">当前待批改总数</div>
-                <div class="text-2xl font-bold text-amber-600 mt-1">${stats.pendingGrades} <span class="text-xs font-normal text-slate-500">份</span></div>
-              </div>
-              <div class="bg-white rounded-2xl border border-slate-200 p-4">
-                <div class="text-xs text-slate-500">待安排错题讲评</div>
-                <div class="text-2xl font-bold text-rose-600 mt-1">${stats.pendingReviews} <span class="text-xs font-normal text-slate-500">个批次</span></div>
-              </div>
-              <div class="bg-white rounded-2xl border border-slate-200 p-4 flex items-center justify-between">
-                <div>
-                  <div class="text-xs text-slate-500">快速出分层作业</div>
-                  <div class="text-sm font-bold text-slate-800 mt-1">基础 / 发展 / 拓展</div>
-                </div>
-                <button data-launch-wf="wf_homework" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold transition">AI 布置</button>
+                <div class="text-xs text-rose-600 font-medium mt-1">提交节点：${esc(hw.deadline)}</div>
               </div>
             </div>
-
-            <div class="flex items-center justify-between">
-              <h2 class="text-base font-bold text-slate-900">作业批次与错因追踪</h2>
-              <button id="addHomeworkBtn" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">+ 新增作业批次</button>
-            </div>
-
-            <div class="space-y-3">
-              ${state.homeworkBatches.map(h => {
-                const graded = Math.max(0, h.submitted - h.pendingGrade);
-                const pct = h.submitted > 0 ? Math.round((graded / h.submitted) * 100) : 100;
+            <div class="space-y-2">
+              ${hw.tiers.map((t, idx) => {
+                const key = `${hw.id}_${idx}`;
+                const checked = !!state.checkedTasks[key];
                 return `
-                  <div class="bg-white rounded-2xl border border-slate-200 p-5">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                      <div>
-                        <div class="flex items-center gap-2 flex-wrap">
-                          <h3 class="text-sm font-bold text-slate-900">${esc(h.title)}</h3>
-                          <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">${esc(h.className)}</span>
-                          ${h.needsReview ? '<span class="text-[11px] px-2 py-0.5 rounded-full bg-rose-50 text-rose-700 font-semibold">待讲评</span>' : '<span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold">已讲评</span>'}
-                        </div>
-                        <div class="text-xs text-slate-500 mt-1">截止 ${esc(h.dueDate)} · 已交 ${h.submitted}/${h.total} 份 · 待批改 <strong class="text-amber-600">${h.pendingGrade}</strong> 份</div>
+                  <label class="flex items-start gap-3 p-3 rounded-xl border cursor-pointer transition ${checked ? 'bg-emerald-50/60 border-emerald-200' : 'bg-slate-50/70 border-slate-200/80 hover:bg-white'}">
+                    <input type="checkbox" data-hw-check="${key}" ${checked ? 'checked' : ''} class="mt-0.5 rounded border-slate-300 text-emerald-600" />
+                    <div class="text-xs flex-1">
+                      <div class="flex items-center justify-between gap-2">
+                        <span class="font-bold ${checked ? 'line-through text-slate-400' : 'text-slate-800'}">${esc(t.level)}</span>
+                        <span class="text-[11px] text-slate-400">${esc(t.time)}</span>
                       </div>
-                      <div class="flex items-center gap-2 flex-wrap">
-                        ${h.pendingGrade > 0 ? `<button data-grade-step="${h.id}" class="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-xs font-semibold transition">批改完成 5 份</button>` : ''}
-                        ${h.pendingGrade > 0 ? `<button data-grade-all="${h.id}" class="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-medium transition">全部已批</button>` : ''}
-                        <button data-review-hw="${h.id}" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-semibold transition">转入错题讲评流 →</button>
-                      </div>
-                    </div>
-                    <div class="mt-3">
-                      <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                        <div class="h-full bg-amber-500 rounded-full transition-all" style="width:${pct}%"></div>
-                      </div>
-                    </div>
-                    <div class="mt-3 text-xs text-slate-600 bg-slate-50 p-3 rounded-xl">
-                      <span class="font-bold text-slate-700">高频错因摘要：</span>${esc(h.errorSummary)}
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 6: Class Affairs
-      function renderClassAffairs() {
-        return `
-          <div class="animate-view space-y-5">
-            <div class="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 class="text-base font-bold text-slate-900">班级事务与学务沟通（4个班）</h2>
-                <p class="text-xs text-slate-500 mt-0.5">沉淀常用学委群通知、临床见习提醒与班导答疑话术，一键复制发送</p>
-              </div>
-              <button id="addAffairBtn" class="px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white text-xs font-semibold transition">+ 新增事务/通知</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              ${state.classAffairs.map(ca => `
-                <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col justify-between gap-3">
-                  <div>
-                    <div class="flex items-center justify-between gap-2">
-                      <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-pink-50 text-pink-700">${esc(ca.type)} · ${esc(ca.className)}</span>
-                      <span class="text-[11px] text-slate-400">${esc(ca.date)}</span>
-                    </div>
-                    <h3 class="text-sm font-bold text-slate-900 mt-2.5">${esc(ca.title)}</h3>
-                    <p class="text-xs text-slate-600 mt-2 leading-relaxed bg-slate-50 p-3 rounded-xl">${esc(ca.content)}</p>
-                  </div>
-                  <div class="flex items-center justify-between pt-2 border-t border-slate-100 text-xs">
-                    <button data-toggle-affair="${ca.id}" class="font-semibold ${ca.status === '已完成' ? 'text-emerald-600' : 'text-amber-600'} hover:underline">${esc(ca.status)}</button>
-                    <button data-copy-affair="${ca.id}" class="font-medium text-indigo-600 hover:underline">复制话术</button>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 7: Project Asset Library (4 Zones + 3D Filter, Pages 12 & 14)
-      function renderAssets() {
-        const f = state.assetFilters;
-        const filtered = state.assets.filter(a => {
-          if (f.zone !== 'all' && a.zone !== f.zone) return false;
-          if (f.date !== 'all' && a.date !== f.date) return false;
-          if (f.className !== 'all' && a.className !== f.className) return false;
-          if (f.docType !== 'all' && a.docType !== f.docType) return false;
-          return true;
-        });
-
-        return `
-          <div class="animate-view space-y-5">
-            <!-- 4 Fixed Asset Zones Overview -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              ${Object.entries(ASSET_ZONES).map(([key, z]) => {
-                const count = state.assets.filter(a => a.zone === key).length;
-                const active = f.zone === key;
-                return `
-                  <button data-asset-zone="${active ? 'all' : key}" class="text-left p-4 rounded-2xl border transition ${active ? 'bg-indigo-50/70 border-indigo-400 ring-1 ring-indigo-300' : 'bg-white border-slate-200 hover:border-indigo-200'}">
-                    <div class="flex items-center justify-between">
-                      <span class="text-xs font-bold px-2 py-0.5 rounded-md ${z.badge}">${z.name}</span>
-                      <span class="text-sm font-bold text-slate-800">${count}</span>
-                    </div>
-                    <p class="text-[11px] text-slate-500 mt-2 leading-relaxed">${z.desc}</p>
-                  </button>
-                `;
-              }).join('')}
-            </div>
-
-            <!-- 3D Dimension Filter Bar (Page 12: 按日期 / 按班级 / 按学科资料类型) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex flex-wrap items-center gap-2 text-xs">
-                <span class="font-bold text-slate-700 mr-1">三维检索：</span>
-                <select id="filterAssetDate" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 outline-none">
-                  <option value="all" ${f.date === 'all' ? 'selected' : ''}>1. 按日期（全部）</option>
-                  <option value="2026-11" ${f.date === '2026-11' ? 'selected' : ''}>2026-11</option>
-                  <option value="2026-10" ${f.date === '2026-10' ? 'selected' : ''}>2026-10</option>
-                </select>
-                <select id="filterAssetClass" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 outline-none">
-                  <option value="all" ${f.className === 'all' ? 'selected' : ''}>2. 按班级（全部）</option>
-                  ${state.config.classes.map(cls => `<option value="${esc(cls)}" ${f.className === cls ? 'selected' : ''}>${esc(cls)}</option>`).join('')}
-                  <option value="通用" ${f.className === '通用' ? 'selected' : ''}>通用</option>
-                </select>
-                <select id="filterAssetType" class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 outline-none">
-                  <option value="all" ${f.docType === 'all' ? 'selected' : ''}>3. 按资料类型（全部）</option>
-                  ${['教材课标', '教案', '课件', '习题与题库', '课堂记录', '学情反馈'].map(t => `<option value="${t}" ${f.docType === t ? 'selected' : ''}>${t}</option>`).join('')}
-                </select>
-                ${(f.zone !== 'all' || f.date !== 'all' || f.className !== 'all' || f.docType !== 'all') ? '<button id="resetAssetFilterBtn" class="text-indigo-600 font-semibold hover:underline ml-1">重置筛选</button>' : ''}
-              </div>
-              <button id="addAssetBtn" class="px-3.5 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold transition">+ 归档/上传资料</button>
-            </div>
-
-            <!-- Asset Table -->
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-              <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs">
-                  <thead class="bg-slate-50 border-b border-slate-200 text-slate-500">
-                    <tr>
-                      <th class="px-4 py-3 font-semibold">资料名称与摘要</th>
-                      <th class="px-4 py-3 font-semibold">所属分区</th>
-                      <th class="px-4 py-3 font-semibold">日期 / 班级 / 类型</th>
-                      <th class="px-4 py-3 font-semibold text-right">操作</th>
-                    </tr>
-                  </thead>
-                  <tbody class="divide-y divide-slate-100">
-                    ${filtered.length === 0 ? '<tr><td colspan="4" class="px-4 py-8 text-center text-slate-400">当前筛选条件下暂无资料</td></tr>' : filtered.map(a => `
-                      <tr class="hover:bg-slate-50/70">
-                        <td class="px-4 py-3.5 max-w-md">
-                          <div class="font-bold text-slate-800">${esc(a.title)}</div>
-                          <div class="text-slate-500 mt-0.5 line-clamp-1">${esc(a.summary)}</div>
-                        </td>
-                        <td class="px-4 py-3.5 whitespace-nowrap">
-                          <span class="px-2 py-0.5 rounded-md font-medium ${ASSET_ZONES[a.zone].badge}">${ASSET_ZONES[a.zone].name}</span>
-                        </td>
-                        <td class="px-4 py-3.5 whitespace-nowrap text-slate-600">
-                          ${esc(a.date)} · ${esc(a.className)} · ${esc(a.docType)}
-                        </td>
-                        <td class="px-4 py-3.5 whitespace-nowrap text-right space-x-2">
-                          <button data-preview-asset="${a.id}" class="text-indigo-600 font-semibold hover:underline">查看</button>
-                          <button data-mount-asset="${a.id}" class="text-violet-600 font-medium hover:underline">挂载给AI</button>
-                          <button data-del-asset="${a.id}" class="text-slate-400 hover:text-rose-600">删除</button>
-                        </td>
-                      </tr>
-                    `).join('')}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 8: Student Records (with Privacy Anonymization)
-      function renderStudents() {
-        return `
-          <div class="animate-view space-y-5">
-            <div class="p-4 rounded-2xl border ${state.privacyAnonymized ? 'bg-emerald-50/80 border-emerald-200 text-emerald-900' : 'bg-amber-50/80 border-amber-200 text-amber-900'} flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div class="text-xs leading-relaxed">
-                <strong>隐私保护边界提醒：</strong>涉及学生姓名、成绩等敏感信息时，建议开启匿名化脱敏后再用于 AI 分层作业或错题讲评。当前状态：<strong>${state.privacyAnonymized ? '已启用匿名编号（安全）' : '已显示真实姓名（仅本地自查）'}</strong>。
-              </div>
-              <button id="addStudentRecordBtn" class="shrink-0 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold transition">+ 新增学情观察</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              ${state.studentRecords.map(s => {
-                const displayName = state.privacyAnonymized ? s.anonId : `${s.realName}（${s.className}）`;
-                const tierColor = s.tier === '拓展层' ? 'bg-violet-50 text-violet-700' : s.tier === '发展层' ? 'bg-blue-50 text-blue-700' : 'bg-amber-50 text-amber-700';
-                return `
-                  <div class="bg-white rounded-2xl border border-slate-200 p-4">
-                    <div class="flex items-center justify-between gap-2">
-                      <div class="flex items-center gap-2">
-                        <span class="text-sm font-bold text-slate-900">${esc(displayName)}</span>
-                        <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full ${tierColor}">${esc(s.tier)}</span>
-                      </div>
-                      <span class="text-xs text-slate-400">${esc(s.date)}</span>
-                    </div>
-                    <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">${esc(s.observation)}</p>
-                    <div class="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
-                      <span class="text-rose-600 font-medium">薄弱点：${esc(s.weakPoint)}</span>
-                      <button data-del-student="${s.id}" class="text-slate-400 hover:text-rose-600">删除</button>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 9: Weekly Review
-      function renderReview() {
-        return `
-          <div class="animate-view space-y-5">
-            <div class="bg-white rounded-2xl border border-slate-200 p-5">
-              <h2 class="text-base font-bold text-slate-900 mb-1">写一份新的每周复盘</h2>
-              <p class="text-xs text-slate-500 mb-4">真正好用的关键是让信息留下来：记录方式越稳定，后续复盘越省事</p>
-              <div class="space-y-3">
-                <input id="reviewWeekInput" type="text" placeholder="复盘周期，例如：2026年11月 第4周" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400" />
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">本周教学问题</label>
-                    <textarea id="reviewProblemsInput" rows="3" placeholder="记录课堂节奏、学生高频错题或作业提交问题..." class="w-full p-3 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400"></textarea>
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">经验总结与亮点</label>
-                    <textarea id="reviewHighlightsInput" rows="3" placeholder="哪些导入方式、互动问题或分层做法效果很好？" class="w-full p-3 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400"></textarea>
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">下周教学改进计划</label>
-                    <textarea id="reviewNextPlanInput" rows="3" placeholder="下周备课重点、微专题补漏或家校沟通安排..." class="w-full p-3 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400"></textarea>
-                  </div>
-                </div>
-                <div class="flex justify-end">
-                  <button id="saveReviewBtn" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition">保存本周复盘</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Historical Reviews -->
-            <div class="space-y-3">
-              <h3 class="text-sm font-bold text-slate-800">历史复盘档案（共 ${state.weeklyReviews.length} 份）</h3>
-              ${state.weeklyReviews.map(w => `
-                <div class="bg-white rounded-2xl border border-slate-200 p-5">
-                  <div class="flex items-center justify-between mb-3">
-                    <h4 class="text-sm font-bold text-slate-900">${esc(w.weekLabel)}</h4>
-                    <span class="text-xs text-slate-400">${esc(w.date)}</span>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                    <div class="p-3 rounded-xl bg-rose-50/50 border border-rose-100">
-                      <div class="font-bold text-rose-800 mb-1">本周问题</div>
-                      <p class="text-slate-700 whitespace-pre-line leading-relaxed">${esc(w.problems)}</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-emerald-50/50 border border-emerald-100">
-                      <div class="font-bold text-emerald-800 mb-1">经验与亮点</div>
-                      <p class="text-slate-700 whitespace-pre-line leading-relaxed">${esc(w.highlights)}</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-blue-50/50 border border-blue-100">
-                      <div class="font-bold text-blue-800 mb-1">下周计划</div>
-                      <p class="text-slate-700 whitespace-pre-line leading-relaxed">${esc(w.nextPlan)}</p>
-                    </div>
-                  </div>
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 10: AI Teaching Experts & 5 Workflows
-      function renderExperts() {
-        const w = state.expertWorkspace;
-        return `
-          <div class="animate-view space-y-5">
-            <!-- Expert Selector Strip -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-4">
-              <div class="flex items-center justify-between mb-3">
-                <h2 class="text-sm font-bold text-slate-900">选择官方教育公益版 AI 教学专家</h2>
-                <span class="text-xs text-slate-500">已自动继承项目全局指令</span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-                ${AI_EXPERTS.map(e => {
-                  const active = w.selectedExpert === e.id;
-                  return `
-                    <button data-select-expert="${e.id}" class="text-left p-3 rounded-xl border transition ${active ? 'bg-indigo-50 border-indigo-400 ring-1 ring-indigo-300' : 'bg-slate-50/60 border-slate-200 hover:bg-white'}">
-                      <div class="flex items-center justify-between gap-1">
-                        <span class="text-xs font-bold text-slate-900">${e.name}</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-white border border-slate-200 text-slate-600">${e.tag}</span>
-                      </div>
-                      <p class="text-[11px] text-slate-500 mt-1.5 line-clamp-2">${e.desc}</p>
-                    </button>
-                  `;
-                }).join('')}
-              </div>
-            </div>
-
-            <!-- Workspace Split: Left Input/Context + Right Output/Verification -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-              <!-- Left Column -->
-              <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">选择分段工作流</label>
-                  <select id="wfSelect" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50 outline-none focus:border-indigo-400">
-                    ${WORKFLOWS.map(wf => `<option value="${wf.id}" ${w.selectedWorkflow === wf.id ? 'selected' : ''}>流程 ${wf.step}：${wf.name}</option>`).join('')}
-                  </select>
-                </div>
-
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">授课课题</label>
-                  <input id="wfTopicInput" type="text" value="${esc(w.topic)}" placeholder="例如：消化性溃疡（胃脘痛）中西医结合诊治" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400" />
-                </div>
-
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">教材版本与章节（防张冠李戴）</label>
-                  <input id="wfChapterInput" type="text" value="${esc(w.chapter)}" placeholder="标明地区与教材版本章节" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400" />
-                </div>
-
-                <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">本节课补充学情/重点要求</label>
-                  <textarea id="wfNotesInput" rows="3" class="w-full p-3 rounded-xl border border-slate-200 text-xs outline-none focus:border-indigo-400">${esc(w.extraNotes)}</textarea>
-                </div>
-
-                <!-- Attached Asset Context -->
-                <div>
-                  <div class="flex items-center justify-between mb-1.5">
-                    <label class="text-xs font-bold text-slate-700">挂载项目资产库参考资料</label>
-                    <span class="text-[11px] text-slate-400">已选 ${w.attachedAssetIds.length} 份</span>
-                  </div>
-                  <div class="max-h-36 overflow-y-auto custom-scroll space-y-1.5 p-2 rounded-xl bg-slate-50 border border-slate-200/80">
-                    ${state.assets.map(a => `
-                      <label class="flex items-center gap-2 text-xs text-slate-700 cursor-pointer p-1 hover:bg-white rounded-lg">
-                        <input type="checkbox" data-toggle-wf-asset="${a.id}" ${w.attachedAssetIds.includes(a.id) ? 'checked' : ''} class="rounded border-slate-300 text-indigo-600" />
-                        <span class="truncate flex-1">${esc(a.title)}</span>
-                        <span class="text-[10px] text-slate-400 shrink-0">${ASSET_ZONES[a.zone].name.slice(0, 4)}</span>
-                      </label>
-                    `).join('')}
-                  </div>
-                </div>
-
-                <button id="runExpertBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-xs font-bold shadow-sm transition">
-                  生成分段产出初稿
-                </button>
-              </div>
-
-              <!-- Right Column: Output & Human Verification -->
-              <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 p-5 flex flex-col">
-                <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
-                  <div class="flex items-center gap-2">
-                    <h3 class="text-sm font-bold text-slate-900">产出初稿与人工终审区</h3>
-                    ${w.draftReviewed ? '<span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-semibold">✓ 教师已终审</span>' : '<span class="text-[11px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold">初稿待核对</span>'}
-                  </div>
-                  <div class="flex items-center gap-1.5 flex-wrap">
-                    <button id="copyDraftBtn" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50">复制</button>
-                    <button id="exportDraftBtn" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50">导出文档</button>
-                    <button id="archiveDraftBtn" class="px-2.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold">存入产出文件区</button>
-                    <button id="shareColleagueBtn" class="px-2.5 py-1.5 rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-semibold">流转给备课组</button>
-                  </div>
-                </div>
-
-                <div class="mt-3 p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/70 text-[11px] text-amber-900 flex items-center justify-between gap-2">
-                  <span>⚠️ <strong>边界提醒</strong>：AI 生成内容是初稿不是定稿，上课前请对照教材与新课标逐项核对知识点与案例。</span>
-                  <button id="confirmReviewBtn" class="shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-bold ${w.draftReviewed ? 'bg-emerald-600 text-white' : 'bg-amber-600 text-white hover:bg-amber-700'}">
-                    ${w.draftReviewed ? '已人工终审' : '标记人工已审'}
-                  </button>
-                </div>
-
-                <textarea id="draftOutputArea" rows="16" placeholder="点击左侧“生成分段产出初稿”，AI 将结合你的项目指令和勾选的资产库资料生成结构化初稿，你可以在这里直接修改润色..." class="mt-3 flex-1 w-full p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs font-mono leading-relaxed text-slate-800 outline-none focus:bg-white focus:border-indigo-400">${esc(w.generatedDraft)}</textarea>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 11: Project Settings, 6-Item Template & Scheduled Tasks
-      function renderSettings() {
-        const cfg = state.config;
-        return `
-          <div class="animate-view space-y-5">
-            <!-- Project Config & 6-Item Template (Pages 6 & 11) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <h2 class="text-base font-bold text-slate-900">教师项目工作台配置（6项核心需求 + 全局项目指令）</h2>
-                  <p class="text-xs text-slate-500 mt-0.5">修改后所有 AI 教学专家和工作流会自动继承这里的全局规则，不用每次重复说明</p>
-                </div>
-                <button id="generatePromptBtn" class="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white text-xs font-semibold transition">一键生成 WorkBuddy 搭建指令</button>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">项目名称（按学科和学段命名）</label>
-                  <input id="cfgProjectName" type="text" value="${esc(cfg.projectName)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">我的身份</label>
-                  <input id="cfgTeacherRole" type="text" value="${esc(cfg.teacherRole)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">1. 任教学科</label>
-                  <input id="cfgSubject" type="text" value="${esc(cfg.subject)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">2. 年级与班级（逗号分隔）</label>
-                  <input id="cfgClasses" type="text" value="${esc(cfg.classes.join('，'))}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">教材版本（必标明）</label>
-                  <input id="cfgTextbook" type="text" value="${esc(cfg.textbookVersion)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">3. 每日高频任务</label>
-                  <input id="cfgDailyTasks" type="text" value="${esc(cfg.dailyTasks)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">4. 常用资料类型</label>
-                  <input id="cfgResources" type="text" value="${esc(cfg.commonResources)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">5. 提醒方式</label>
-                  <input id="cfgReminderStyle" type="text" value="${esc(cfg.reminderStyle)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-                <div>
-                  <label class="block font-semibold text-slate-700 mb-1">6. 复盘习惯</label>
-                  <input id="cfgReviewHabit" type="text" value="${esc(cfg.reviewHabit)}" class="w-full px-3 py-2 rounded-xl border border-slate-200 outline-none focus:border-indigo-400" />
-                </div>
-              </div>
-
-              <div class="text-xs">
-                <label class="block font-semibold text-slate-700 mb-1">全局项目指令（对 AI 的全局行为规则，项目内所有任务自动继承）</label>
-                <textarea id="cfgGlobalInstructions" rows="3" class="w-full p-3 rounded-xl border border-slate-200 outline-none focus:border-indigo-400">${esc(cfg.globalInstructions)}</textarea>
-              </div>
-
-              <div class="flex items-center justify-between pt-2">
-                <button id="resetDemoDataBtn" class="text-xs text-rose-600 hover:underline">恢复默认演示数据</button>
-                <button id="saveConfigBtn" class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition">保存项目配置</button>
-              </div>
-            </div>
-
-            <!-- Scheduled Tasks (Page 16) -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-5">
-              <div class="flex items-center justify-between mb-3">
-                <div>
-                  <h3 class="text-sm font-bold text-slate-900">定时任务管理（周期性教学事务自动提醒）</h3>
-                  <p class="text-xs text-slate-500 mt-0.5">定时任务在创建者本人会话里运行，仅自己可见可管理</p>
-                </div>
-                <button id="addScheduleBtn" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition">+ 新建定时任务</button>
-              </div>
-              <div class="space-y-2.5">
-                ${state.scheduledTasks.map(st => `
-                  <div class="flex items-center justify-between gap-3 p-3.5 rounded-xl border border-slate-200/80 bg-slate-50/50">
-                    <div class="min-w-0">
-                      <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-slate-900">${esc(st.title)}</span>
-                        <span class="text-[11px] px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium">${esc(st.schedule)}</span>
-                      </div>
-                      <p class="text-xs text-slate-500 mt-1">${esc(st.prompt)}</p>
-                    </div>
-                    <button data-toggle-schedule="${st.id}" class="shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold transition ${st.enabled ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">
-                      ${st.enabled ? '已启用' : '已暂停'}
-                    </button>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // VIEW 12: Launch Acceptance Checklist & Boundaries (Pages 13, 16-17)
-      function renderAcceptance() {
-        const stats = getStats();
-        const pct = Math.round((stats.checkedAcc / stats.totalAcc) * 100);
-        return `
-          <div class="animate-view space-y-5">
-            <!-- 5-Item Checklist -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-5">
-              <div class="flex items-center justify-between mb-2">
-                <h2 class="text-base font-bold text-slate-900">上线前做一次教师工作台验收（5 项核心检查）</h2>
-                <span class="text-xs font-bold text-indigo-600">${stats.checkedAcc} / ${stats.totalAcc} 已通过（${pct}%）</span>
-              </div>
-              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden mb-4">
-                <div class="h-full bg-emerald-500 rounded-full transition-all" style="width:${pct}%"></div>
-              </div>
-              <div class="space-y-2.5">
-                ${state.acceptanceChecklist.map((item, idx) => `
-                  <label class="flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition ${item.checked ? 'bg-emerald-50/50 border-emerald-200' : 'bg-white border-slate-200 hover:bg-slate-50'}">
-                    <input type="checkbox" data-toggle-acc="${item.id}" ${item.checked ? 'checked' : ''} class="mt-0.5 rounded border-slate-300 text-emerald-600" />
-                    <div class="text-xs">
-                      <div class="font-bold text-slate-900">${idx + 1}. ${esc(item.title)}</div>
-                      <div class="text-slate-500 mt-0.5">${esc(item.desc)}</div>
+                      <p class="mt-1 leading-relaxed ${checked ? 'line-through text-slate-400' : 'text-slate-600'}">${esc(t.task)}</p>
                     </div>
                   </label>
-                `).join('')}
-              </div>
-            </div>
-
-            <!-- Boundaries & Best Practices -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-5">
-              <h3 class="text-sm font-bold text-slate-900 mb-3">必须守住的 5 条使用边界</h3>
-              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-                <div class="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200/70">
-                  <div class="font-bold text-amber-900">1. 生成内容是初稿，不是定稿</div>
-                  <p class="text-amber-800/90 mt-1 leading-relaxed">教案、课件、题目里的知识点、数据和案例，上课前必须对照教材和课标人工终审。</p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200/70">
-                  <div class="font-bold text-emerald-900">2. 学情不能凭空编，隐私先脱敏</div>
-                  <p class="text-emerald-800/90 mt-1 leading-relaxed">班级学生基础与课堂反应以实际记录为准，涉及姓名、成绩先开启匿名化脱敏再进项目。</p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-indigo-50/60 border border-indigo-200/70">
-                  <div class="font-bold text-indigo-900">3. 先标明教材版本，防张冠李戴</div>
-                  <p class="text-indigo-800/90 mt-1 leading-relaxed">不同地区、版本教材章节顺序不同，生成方案前务必在项目指令与任务中标明版本。</p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-violet-50/60 border border-violet-200/70">
-                  <div class="font-bold text-violet-900">4. 导出 Word/PPT 必须抽查</div>
-                  <p class="text-violet-800/90 mt-1 leading-relaxed">导出文件后抽查排版、数学公式、图片与编号，避免课堂展示出现格式错乱。</p>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                  <div class="font-bold text-slate-900">5. 备课组协作注意权限边界</div>
-                  <p class="text-slate-600 mt-1 leading-relaxed">流转任务给同事前确认资料范围合适，协作任务中个人授权连接器默认禁用。</p>
-                </div>
-              </div>
+                `;
+              }).join('')}
             </div>
           </div>
         `;
       }
 
-      // Main Render Router
+      function renderResourceCard(r) {
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 p-4 flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-md bg-violet-50 text-violet-700">${esc(r.category)}</span>
+                <span class="text-[11px] text-slate-400">更新于 ${esc(r.updated)}</span>
+              </div>
+              <h4 class="text-sm font-bold text-slate-900 mt-2 leading-snug">${esc(r.title)}</h4>
+              <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">${esc(r.summary)}</p>
+            </div>
+            <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="text-slate-400">${esc(formatClassBadge(r.classes))}</span>
+              ${r.downloadUrl
+                ? `<a href="${esc(r.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="font-semibold text-indigo-600 hover:underline">下载/打开资料 →</a>`
+                : `<button data-res-preview="${r.id}" class="font-semibold text-indigo-600 hover:underline">查看说明 →</button>`
+              }
+            </div>
+          </div>
+        `;
+      }
+
+      function renderNoticeCard(n) {
+        const tagStyle = n.tag === '重要提醒' ? 'bg-rose-50 text-rose-700' : 'bg-blue-50 text-blue-700';
+        return `
+          <div class="bg-white rounded-2xl border border-slate-200 p-4">
+            <div class="flex items-center justify-between gap-2 flex-wrap">
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full ${tagStyle}">${esc(n.tag)}</span>
+                <span class="text-xs font-medium text-indigo-600">${esc(formatClassBadge(n.classes))}</span>
+              </div>
+              <span class="text-xs text-slate-400">${esc(n.date)}</span>
+            </div>
+            <h4 class="text-sm font-bold text-slate-900 mt-2">${esc(n.title)}</h4>
+            <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">${esc(n.content)}</p>
+          </div>
+        `;
+      }
+
       function render() {
-        updateChrome();
-        const main = document.getElementById('mainContent');
-        if (state.searchQuery.trim()) {
-          main.innerHTML = renderSearchResults();
-          bindViewEvents();
-          return;
-        }
-        const renderers = {
-          dashboard: renderDashboard,
-          courses: renderCourses,
-          prep: renderPrep,
-          classroom: renderClassroom,
-          homework: renderHomework,
-          classAffairs: renderClassAffairs,
-          assets: renderAssets,
-          students: renderStudents,
-          review: renderReview,
-          experts: renderExperts,
-          settings: renderSettings,
-          acceptance: renderAcceptance
-        };
-        main.innerHTML = (renderers[state.activeView] || renderDashboard)();
-        bindViewEvents();
-      }
+        const m = COURSE_PORTAL_DATA.meta;
+        const schedules = COURSE_PORTAL_DATA.schedules.filter(s => matchClass(s.classes) && matchSearch(`${s.title} ${s.location} ${s.prepTip} ${s.type}`));
+        const homeworks = COURSE_PORTAL_DATA.homework.filter(h => matchClass(h.classes) && matchSearch(`${h.title} ${h.tiers.map(t => t.task).join(' ')}`));
+        const resources = COURSE_PORTAL_DATA.resources.filter(r => matchClass(r.classes) && matchSearch(`${r.title} ${r.category} ${r.summary}`));
+        const notices = COURSE_PORTAL_DATA.notices.filter(n => matchClass(n.classes) && matchSearch(`${n.title} ${n.content} ${n.tag}`));
 
-      function navigate(view) {
-        state.activeView = view;
-        state.searchQuery = '';
-        document.getElementById('globalSearchInput').value = '';
-        saveState();
-        closeMobileSidebar();
-        render();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+        const main = document.getElementById('appMain');
 
-      function openMobileSidebar() {
-        document.getElementById('sidebar').classList.remove('-translate-x-full');
-        document.getElementById('mobileOverlay').classList.remove('hidden');
-      }
-
-      function closeMobileSidebar() {
-        document.getElementById('sidebar').classList.add('-translate-x-full');
-        document.getElementById('mobileOverlay').classList.add('hidden');
-      }
-
-      // Bind dynamic events inside mainContent
-      function bindViewEvents() {
-        const main = document.getElementById('mainContent');
-
-        // Generic goto links
-        main.querySelectorAll('[data-goto]').forEach(el => {
-          el.addEventListener('click', () => navigate(el.dataset.goto));
-        });
-
-        // Dashboard mode switch
-        const modeMvpBtn = document.getElementById('modeMvpBtn');
-        const modeFullBtn = document.getElementById('modeFullBtn');
-        if (modeMvpBtn) modeMvpBtn.addEventListener('click', () => { state.dashboardMode = 'mvp4'; saveState(); render(); });
-        if (modeFullBtn) modeFullBtn.addEventListener('click', () => { state.dashboardMode = 'full'; saveState(); render(); });
-
-        // Launch workflow shortcut
-        main.querySelectorAll('[data-launch-wf]').forEach(el => {
-          el.addEventListener('click', () => {
-            const wf = WORKFLOWS.find(w => w.id === el.dataset.launchWf);
-            if (wf) {
-              state.expertWorkspace.selectedWorkflow = wf.id;
-              state.expertWorkspace.selectedExpert = wf.expert;
-              navigate('experts');
-            }
-          });
-        });
-
-        // Toggle course status
-        main.querySelectorAll('[data-toggle-course]').forEach(el => {
-          el.addEventListener('click', () => {
-            const c = state.courses.find(x => x.id === el.dataset.toggleCourse);
-            if (c) {
-              c.status = c.status === 'done' ? 'upcoming' : 'done';
-              saveState();
-              render();
-              showToast(c.status === 'done' ? '已标记课程完成' : '已恢复为待授课');
-            }
-          });
-        });
-
-        // Prep from course
-        main.querySelectorAll('[data-prep-from-course]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.expertWorkspace.topic = el.dataset.prepFromCourse;
-            state.expertWorkspace.selectedWorkflow = 'wf_lesson';
-            state.expertWorkspace.selectedExpert = 'lesson_plan';
-            navigate('experts');
-          });
-        });
-
-        // Delete course
-        main.querySelectorAll('[data-del-course]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.courses = state.courses.filter(x => x.id !== el.dataset.delCourse);
-            saveState();
-            render();
-            showToast('已删除该课程');
-          });
-        });
-
-        // Toggle reminder
-        main.querySelectorAll('[data-toggle-reminder]').forEach(el => {
-          el.addEventListener('change', () => {
-            const r = state.reminders.find(x => x.id === el.dataset.toggleReminder);
-            if (r) {
-              r.done = el.checked;
-              saveState();
-              render();
-            }
-          });
-        });
-
-        // Delete reminder
-        main.querySelectorAll('[data-del-reminder]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.reminders = state.reminders.filter(x => x.id !== el.dataset.delReminder);
-            saveState();
-            render();
-          });
-        });
-
-        // Add Course modal
-        const addCourseBtn = document.getElementById('addCourseBtn');
-        if (addCourseBtn) {
-          addCourseBtn.addEventListener('click', () => {
-            openModal('添加今日课程', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">上课时间</label><input id="mCourseTime" type="text" value="15:05 - 15:50" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">班级</label><input id="mCourseClass" type="text" value="${esc(state.config.classes[0] || '八年级(1)班')}" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">课题名称</label><input id="mCourseTopic" type="text" placeholder="例如：14.2.1 平方差公式" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">教室/地点</label><input id="mCourseRoom" type="text" value="致知楼 302" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">授课提示</label><input id="mCourseNote" type="text" placeholder="重难点或提醒事项" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveCourseBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold">确认添加</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveCourseBtn').addEventListener('click', () => {
-              const topic = document.getElementById('mCourseTopic').value.trim();
-              if (!topic) return showToast('请填写课题名称', 'warning');
-              state.courses.push({
-                id: 'c_' + Date.now(),
-                time: document.getElementById('mCourseTime').value.trim() || '待定',
-                className: document.getElementById('mCourseClass').value.trim() || '未指定',
-                topic,
-                room: document.getElementById('mCourseRoom').value.trim() || '教室',
-                status: 'upcoming',
-                note: document.getElementById('mCourseNote').value.trim()
-              });
-              saveState(); closeModal(); render(); showToast('已添加到今日课表');
-            });
-          });
-        }
-
-        // Add Reminder modal
-        const addRemBtn = document.getElementById('addReminderBtn') || document.getElementById('dashAddReminderBtn');
-        if (addRemBtn) {
-          addRemBtn.addEventListener('click', () => {
-            openModal('新增今日提醒', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">提醒内容</label><input id="mRemText" type="text" placeholder="例如：课前提醒中西医临床1-4班学委收齐病案分析报告" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveRemBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold">添加提醒</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveRemBtn').addEventListener('click', () => {
-              const text = document.getElementById('mRemText').value.trim();
-              if (!text) return showToast('请输入提醒内容', 'warning');
-              state.reminders.unshift({ id: 'r_' + Date.now(), text, priority: 'medium', done: false });
-              saveState(); closeModal(); render(); showToast('已添加提醒');
-            });
-          });
-        }
-
-        // Prep actions
-        const addPrepBtn = document.getElementById('addPrepBtn');
-        if (addPrepBtn) {
-          addPrepBtn.addEventListener('click', () => {
-            openModal('新建备课课时', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">课题名称</label><input id="mPrepTitle" type="text" placeholder="例如：糖尿病（消渴）的中西医结合诊疗" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">所属章节</label><input id="mPrepChapter" type="text" value="第五章 内分泌与代谢疾病" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">课时目标</label><textarea id="mPrepObj" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200" placeholder="可教可测的核心目标..."></textarea></div>
-                <div><label class="block font-semibold mb-1">教学过程与板书要点</label><textarea id="mPrepContent" rows="3" class="w-full p-2.5 rounded-xl border border-slate-200" placeholder="情境引入、探究、例题与板书..."></textarea></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSavePrepBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold">保存备课</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSavePrepBtn').addEventListener('click', () => {
-              const title = document.getElementById('mPrepTitle').value.trim();
-              if (!title) return showToast('请输入课题名称', 'warning');
-              state.prepLessons.unshift({
-                id: 'p_' + Date.now(),
-                title,
-                chapter: document.getElementById('mPrepChapter').value.trim(),
-                grade: state.config.grade,
-                status: '框架初稿',
-                stage: 1,
-                updatedAt: new Date().toISOString().slice(0, 10),
-                objectives: document.getElementById('mPrepObj').value.trim() || '待补充课时目标',
-                content: document.getElementById('mPrepContent').value.trim() || '待补充教学过程'
-              });
-              saveState(); closeModal(); render(); showToast('已新建备课课时');
-            });
-          });
-        }
-
-        main.querySelectorAll('[data-advance-prep]').forEach(el => {
-          el.addEventListener('click', () => {
-            const p = state.prepLessons.find(x => x.id === el.dataset.advancePrep);
-            if (p) {
-              p.stage = p.stage >= 4 ? 1 : p.stage + 1;
-              const statusNames = ['', '框架初稿', '定稿待转课件', '课件结构已成', '已完成全套'];
-              p.status = statusNames[p.stage];
-              saveState(); render(); showToast(`已推进至：${p.status}`);
-            }
-          });
-        });
-
-        main.querySelectorAll('[data-to-ppt]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.expertWorkspace.topic = el.dataset.toPpt;
-            state.expertWorkspace.selectedWorkflow = 'wf_ppt';
-            state.expertWorkspace.selectedExpert = 'courseware';
-            navigate('experts');
-          });
-        });
-
-        main.querySelectorAll('[data-export-prep]').forEach(el => {
-          el.addEventListener('click', () => {
-            const p = state.prepLessons.find(x => x.id === el.dataset.exportPrep);
-            if (p) {
-              const md = `# ${p.title}\n\n- 章节：${p.chapter}\n- 状态：${p.status}\n\n## 课时目标\n${p.objectives}\n\n## 教学过程与板书\n${p.content}\n`;
-              downloadTextFile(`${p.title}_教案.md`, md);
-            }
-          });
-        });
-
-        // Classroom Log modal
-        const addClassroomLogBtn = document.getElementById('addClassroomLogBtn');
-        if (addClassroomLogBtn) {
-          addClassroomLogBtn.addEventListener('click', () => {
-            openModal('记录本节课堂情况', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">班级</label><input id="mClClass" type="text" value="${esc(state.config.classes[0] || '八年级(1)班')}" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">课题</label><input id="mClLesson" type="text" placeholder="本节授课课题" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">临场调整与课堂反应</label><textarea id="mClAdj" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
-                <div><label class="block font-semibold mb-1">板书/口诀记录</label><textarea id="mClBoard" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveClBtn" class="px-4 py-1.5 rounded-lg bg-cyan-600 text-white text-xs font-semibold">保存记录</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveClBtn').addEventListener('click', () => {
-              const lesson = document.getElementById('mClLesson').value.trim();
-              if (!lesson) return showToast('请填写课题', 'warning');
-              state.classroomLogs.unshift({
-                id: 'cl_' + Date.now(),
-                date: new Date().toISOString().slice(0, 10),
-                className: document.getElementById('mClClass').value.trim(),
-                lesson,
-                adjustment: document.getElementById('mClAdj').value.trim() || '按原教案顺利推进',
-                boardNote: document.getElementById('mClBoard').value.trim() || '常规板书'
-              });
-              saveState(); closeModal(); render(); showToast('已保存课堂教学记录');
-            });
-          });
-        }
-
-        // Homework actions
-        main.querySelectorAll('[data-grade-step]').forEach(el => {
-          el.addEventListener('click', () => {
-            const h = state.homeworkBatches.find(x => x.id === el.dataset.gradeStep);
-            if (h) {
-              h.pendingGrade = Math.max(0, h.pendingGrade - 5);
-              saveState(); render(); showToast(`已更新进度，剩余待批改 ${h.pendingGrade} 份`);
-            }
-          });
-        });
-
-        main.querySelectorAll('[data-grade-all]').forEach(el => {
-          el.addEventListener('click', () => {
-            const h = state.homeworkBatches.find(x => x.id === el.dataset.gradeAll);
-            if (h) {
-              h.pendingGrade = 0;
-              saveState(); render(); showToast('本批次作业已全部批改完成');
-            }
-          });
-        });
-
-        main.querySelectorAll('[data-review-hw]').forEach(el => {
-          el.addEventListener('click', () => {
-            const h = state.homeworkBatches.find(x => x.id === el.dataset.reviewHw);
-            if (h) {
-              state.expertWorkspace.topic = h.title;
-              state.expertWorkspace.extraNotes = `本班作业高频错因：${h.errorSummary}`;
-              state.expertWorkspace.selectedWorkflow = 'wf_error';
-              state.expertWorkspace.selectedExpert = 'error_review';
-              h.needsReview = false;
-              saveState();
-              navigate('experts');
-              showToast('已将错因摘要带入作业讲评专家');
-            }
-          });
-        });
-
-        const addHomeworkBtn = document.getElementById('addHomeworkBtn');
-        if (addHomeworkBtn) {
-          addHomeworkBtn.addEventListener('click', () => {
-            openModal('新增作业反馈批次', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">作业标题</label><input id="mHwTitle" type="text" placeholder="例如：原发性高血压（眩晕）病案分析作业" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div><label class="block font-semibold mb-1">班级</label><input id="mHwClass" type="text" value="${esc(state.config.classes[0] || '八年级(1)班')}" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                  <div><label class="block font-semibold mb-1">待批改份数</label><input id="mHwCount" type="number" value="40" min="0" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                </div>
-                <div><label class="block font-semibold mb-1">初步错因观察</label><textarea id="mHwErr" rows="2" placeholder="例如：公式符号辨析混淆..." class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveHwBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold">创建批次</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveHwBtn').addEventListener('click', () => {
-              const title = document.getElementById('mHwTitle').value.trim();
-              if (!title) return showToast('请填写作业标题', 'warning');
-              const cnt = Math.max(0, parseInt(document.getElementById('mHwCount').value, 10) || 0);
-              state.homeworkBatches.unshift({
-                id: 'h_' + Date.now(),
-                title,
-                className: document.getElementById('mHwClass').value.trim(),
-                total: cnt,
-                submitted: cnt,
-                pendingGrade: cnt,
-                needsReview: true,
-                errorSummary: document.getElementById('mHwErr').value.trim() || '待批改后补充错因归类',
-                dueDate: new Date().toISOString().slice(0, 10)
-              });
-              saveState(); closeModal(); render(); showToast('已创建作业批次');
-            });
-          });
-        }
-
-        // Class Affairs actions
-        main.querySelectorAll('[data-toggle-affair]').forEach(el => {
-          el.addEventListener('click', () => {
-            const ca = state.classAffairs.find(x => x.id === el.dataset.toggleAffair);
-            if (ca) {
-              ca.status = ca.status === '已完成' ? '待发送' : '已完成';
-              saveState(); render();
-            }
-          });
-        });
-
-        main.querySelectorAll('[data-copy-affair]').forEach(el => {
-          el.addEventListener('click', () => {
-            const ca = state.classAffairs.find(x => x.id === el.dataset.copyAffair);
-            if (ca) copyText(`${ca.title}\n${ca.content}`, '已复制通知话术');
-          });
-        });
-
-        const addAffairBtn = document.getElementById('addAffairBtn');
-        if (addAffairBtn) {
-          addAffairBtn.addEventListener('click', () => {
-            openModal('新增班级事务/家校通知', `
-              <div class="space-y-3 text-xs">
-                <div class="grid grid-cols-2 gap-3">
-                  <div><label class="block font-semibold mb-1">类型</label><select id="mCaType" class="w-full px-3 py-2 rounded-xl border border-slate-200"><option>教学通知</option><option>班导沟通</option><option>教务安排</option></select></div>
-                  <div><label class="block font-semibold mb-1">面向对象</label><input id="mCaClass" type="text" value="${esc(state.config.classes[0] || '全体')}" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                </div>
-                <div><label class="block font-semibold mb-1">标题</label><input id="mCaTitle" type="text" placeholder="例如：本周附属医院临床见习分组与纪律提醒" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">正文内容</label><textarea id="mCaContent" rows="3" class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveCaBtn" class="px-4 py-1.5 rounded-lg bg-pink-600 text-white text-xs font-semibold">保存事务</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveCaBtn').addEventListener('click', () => {
-              const title = document.getElementById('mCaTitle').value.trim();
-              if (!title) return showToast('请填写标题', 'warning');
-              state.classAffairs.unshift({
-                id: 'ca_' + Date.now(),
-                type: document.getElementById('mCaType').value,
-                className: document.getElementById('mCaClass').value.trim(),
-                title,
-                status: '待发送',
-                date: new Date().toISOString().slice(0, 10),
-                content: document.getElementById('mCaContent').value.trim()
-              });
-              saveState(); closeModal(); render(); showToast('已添加班级事务');
-            });
-          });
-        }
-
-        // Assets filters & actions
-        main.querySelectorAll('[data-asset-zone]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.assetFilters.zone = el.dataset.assetZone;
-            render();
-          });
-        });
-        const fDate = document.getElementById('filterAssetDate');
-        const fClass = document.getElementById('filterAssetClass');
-        const fType = document.getElementById('filterAssetType');
-        if (fDate) fDate.addEventListener('change', () => { state.assetFilters.date = fDate.value; render(); });
-        if (fClass) fClass.addEventListener('change', () => { state.assetFilters.className = fClass.value; render(); });
-        if (fType) fType.addEventListener('change', () => { state.assetFilters.docType = fType.value; render(); });
-        const resetAssetBtn = document.getElementById('resetAssetFilterBtn');
-        if (resetAssetBtn) {
-          resetAssetBtn.addEventListener('click', () => {
-            state.assetFilters = { zone: 'all', date: 'all', className: 'all', docType: 'all' };
-            render();
-          });
-        }
-
-        main.querySelectorAll('[data-preview-asset]').forEach(el => {
-          el.addEventListener('click', () => {
-            const a = state.assets.find(x => x.id === el.dataset.previewAsset);
-            if (a) {
-              openModal(a.title, `
-                <div class="space-y-3 text-xs">
-                  <div class="flex flex-wrap gap-2">
-                    <span class="px-2 py-0.5 rounded-md font-semibold ${ASSET_ZONES[a.zone].badge}">${ASSET_ZONES[a.zone].name}</span>
-                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">${esc(a.date)}</span>
-                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">${esc(a.className)}</span>
-                    <span class="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600">${esc(a.docType)}</span>
+        if (state.tab === 'overview') {
+          main.innerHTML = `
+            <section class="rounded-2xl bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-600 p-5 sm:p-6 text-white shadow-sm">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/15 text-xs font-medium mb-2">
+                    <span>${esc(m.termWeek)}</span>
+                    <span>·</span>
+                    <span>${esc(m.textbook)}</span>
                   </div>
-                  <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 whitespace-pre-line leading-relaxed text-slate-700">${esc(a.summary)}</div>
+                  <h2 class="text-xl font-bold">${esc(m.courseName)} · 学习导航</h2>
+                  <p class="text-xs sm:text-sm text-indigo-100 mt-1.5 max-w-2xl">${esc(m.welcomeNote)}</p>
                 </div>
-              `, `<button id="mCancelBtn" class="px-4 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-semibold">关闭</button>`);
-              document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            }
-          });
-        });
-
-        main.querySelectorAll('[data-mount-asset]').forEach(el => {
-          el.addEventListener('click', () => {
-            const id = el.dataset.mountAsset;
-            if (!state.expertWorkspace.attachedAssetIds.includes(id)) {
-              state.expertWorkspace.attachedAssetIds.push(id);
-              saveState();
-            }
-            navigate('experts');
-            showToast('已将该资料挂载到 AI 专家上下文');
-          });
-        });
-
-        main.querySelectorAll('[data-del-asset]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.assets = state.assets.filter(x => x.id !== el.dataset.delAsset);
-            saveState(); render(); showToast('已移除该资产资料');
-          });
-        });
-
-        const addAssetBtn = document.getElementById('addAssetBtn');
-        if (addAssetBtn) {
-          addAssetBtn.addEventListener('click', () => {
-            openModal('归档/上传资料到项目资产库', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">资料名称（建议含课题与日期）</label><input id="mAssetTitle" type="text" placeholder="例如：消化性溃疡_中西医结合教案_20261123.docx" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div class="grid grid-cols-2 gap-3">
-                  <div>
-                    <label class="block font-semibold mb-1">存放分区</label>
-                    <select id="mAssetZone" class="w-full px-3 py-2 rounded-xl border border-slate-200">
-                      <option value="textbook">教材与课标区</option>
-                      <option value="history">历史课件与教案区</option>
-                      <option value="feedback">学情与反馈区（请匿名）</option>
-                      <option value="output" selected>产出文件区</option>
-                    </select>
+                <div class="grid grid-cols-2 gap-2.5 shrink-0 text-center">
+                  <div class="px-4 py-2.5 rounded-xl bg-white/15">
+                    <div class="text-lg font-bold">${schedules.length}</div>
+                    <div class="text-[11px] text-indigo-100">近期课程/见习</div>
                   </div>
-                  <div>
-                    <label class="block font-semibold mb-1">资料类型</label>
-                    <select id="mAssetType" class="w-full px-3 py-2 rounded-xl border border-slate-200">
-                      <option>教案</option><option>课件</option><option>习题与题库</option><option>教材课标</option><option>课堂记录</option><option>学情反馈</option>
-                    </select>
+                  <div class="px-4 py-2.5 rounded-xl bg-white/15">
+                    <div class="text-lg font-bold">${resources.length}</div>
+                    <div class="text-[11px] text-indigo-100">公开学习资料</div>
                   </div>
                 </div>
-                <div><label class="block font-semibold mb-1">适用班级</label><input id="mAssetClass" type="text" value="通用" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">资料摘要 / 核心内容</label><textarea id="mAssetSummary" rows="3" placeholder="简述文件要点，方便 AI 精准检索..." class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
               </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveAssetBtn" class="px-4 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-semibold">确认归档</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveAssetBtn').addEventListener('click', () => {
-              const title = document.getElementById('mAssetTitle').value.trim();
-              if (!title) return showToast('请输入资料名称', 'warning');
-              state.assets.unshift({
-                id: 'a_' + Date.now(),
-                zone: document.getElementById('mAssetZone').value,
-                title,
-                date: new Date().toISOString().slice(0, 7),
-                className: document.getElementById('mAssetClass').value.trim() || '通用',
-                docType: document.getElementById('mAssetType').value,
-                sizeMB: 2,
-                summary: document.getElementById('mAssetSummary').value.trim() || '已归档至项目资产库'
-              });
-              saveState(); closeModal(); render(); showToast('资料已归档至项目资产库');
-            });
-          });
-        }
+            </section>
 
-        // Student records actions
-        const addStudentBtn = document.getElementById('addStudentRecordBtn');
-        if (addStudentBtn) {
-          addStudentBtn.addEventListener('click', () => {
-            openModal('新增学情观察记录', `
-              <div class="space-y-3 text-xs">
-                <div class="grid grid-cols-2 gap-3">
-                  <div><label class="block font-semibold mb-1">学生姓名（开启脱敏将自动隐藏）</label><input id="mStuName" type="text" placeholder="例如：赵子轩" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                  <div><label class="block font-semibold mb-1">分层定位</label><select id="mStuTier" class="w-full px-3 py-2 rounded-xl border border-slate-200"><option>基础层</option><option selected>发展层</option><option>拓展层</option></select></div>
+            <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+              <div class="lg:col-span-7 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-bold text-slate-900">本周课表与见习安排</h3>
+                  <button data-jump="schedule" class="text-xs font-semibold text-indigo-600 hover:underline">查看全部 →</button>
                 </div>
-                <div><label class="block font-semibold mb-1">班级</label><input id="mStuClass" type="text" value="${esc(state.config.classes[0] || '八年级(1)班')}" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">薄弱知识点</label><input id="mStuWeak" type="text" placeholder="例如：痰热郁肺与外寒内饮辨证混淆" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">课堂/作业观察记录</label><textarea id="mStuObs" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
+                ${schedules.length ? schedules.slice(0, 3).map(renderScheduleCard).join('') : '<div class="bg-white rounded-2xl border border-slate-200 p-6 text-center text-xs text-slate-400">暂无匹配课程安排</div>'}
               </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveStuBtn" class="px-4 py-1.5 rounded-lg bg-teal-600 text-white text-xs font-semibold">保存记录</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveStuBtn').addEventListener('click', () => {
-              const realName = document.getElementById('mStuName').value.trim();
-              if (!realName) return showToast('请填写学生姓名或代号', 'warning');
-              const cls = document.getElementById('mStuClass').value.trim();
-              const idxLetter = String.fromCharCode(65 + (state.studentRecords.length % 26));
-              state.studentRecords.unshift({
-                id: 's_' + Date.now(),
-                realName,
-                anonId: `学生${idxLetter} (${cls})`,
-                className: cls,
-                tier: document.getElementById('mStuTier').value,
-                weakPoint: document.getElementById('mStuWeak').value.trim() || '待补充',
-                observation: document.getElementById('mStuObs').value.trim() || '常规表现记录',
-                date: new Date().toISOString().slice(0, 10)
-              });
-              saveState(); closeModal(); render(); showToast('已保存学情记录');
-            });
-          });
-        }
 
-        main.querySelectorAll('[data-del-student]').forEach(el => {
-          el.addEventListener('click', () => {
-            state.studentRecords = state.studentRecords.filter(x => x.id !== el.dataset.delStudent);
-            saveState(); render(); showToast('已删除学情记录');
-          });
-        });
-
-        // Weekly Review save
-        const saveReviewBtn = document.getElementById('saveReviewBtn');
-        if (saveReviewBtn) {
-          saveReviewBtn.addEventListener('click', () => {
-            const weekLabel = document.getElementById('reviewWeekInput').value.trim() || `复盘记录 ${new Date().toISOString().slice(0, 10)}`;
-            const problems = document.getElementById('reviewProblemsInput').value.trim();
-            const highlights = document.getElementById('reviewHighlightsInput').value.trim();
-            const nextPlan = document.getElementById('reviewNextPlanInput').value.trim();
-            if (!problems && !highlights && !nextPlan) return showToast('请至少填写一项复盘内容', 'warning');
-            state.weeklyReviews.unshift({
-              id: 'w_' + Date.now(),
-              weekLabel,
-              date: new Date().toISOString().slice(0, 10),
-              problems: problems || '暂无突出问题',
-              highlights: highlights || '保持稳定教学节奏',
-              nextPlan: nextPlan || '按计划推进下周课时'
-            });
-            saveState(); render(); showToast('已保存至每周复盘历史档案');
-          });
-        }
-
-        // AI Experts & Workflows events
-        main.querySelectorAll('[data-select-expert]').forEach(el => {
-          el.addEventListener('click', () => {
-            const exp = AI_EXPERTS.find(e => e.id === el.dataset.selectExpert);
-            if (exp) {
-              state.expertWorkspace.selectedExpert = exp.id;
-              state.expertWorkspace.selectedWorkflow = exp.workflow;
-              saveState(); render();
-            }
-          });
-        });
-
-        const wfSelect = document.getElementById('wfSelect');
-        if (wfSelect) {
-          wfSelect.addEventListener('change', () => {
-            state.expertWorkspace.selectedWorkflow = wfSelect.value;
-            const wf = WORKFLOWS.find(x => x.id === wfSelect.value);
-            if (wf) state.expertWorkspace.selectedExpert = wf.expert;
-            saveState(); render();
-          });
-        }
-
-        const wfTopic = document.getElementById('wfTopicInput');
-        const wfChapter = document.getElementById('wfChapterInput');
-        const wfNotes = document.getElementById('wfNotesInput');
-        if (wfTopic) wfTopic.addEventListener('input', () => { state.expertWorkspace.topic = wfTopic.value; saveState(); });
-        if (wfChapter) wfChapter.addEventListener('input', () => { state.expertWorkspace.chapter = wfChapter.value; saveState(); });
-        if (wfNotes) wfNotes.addEventListener('input', () => { state.expertWorkspace.extraNotes = wfNotes.value; saveState(); });
-
-        main.querySelectorAll('[data-toggle-wf-asset]').forEach(el => {
-          el.addEventListener('change', () => {
-            const id = el.dataset.toggleWfAsset;
-            if (el.checked) {
-              if (!state.expertWorkspace.attachedAssetIds.includes(id)) state.expertWorkspace.attachedAssetIds.push(id);
-            } else {
-              state.expertWorkspace.attachedAssetIds = state.expertWorkspace.attachedAssetIds.filter(x => x !== id);
-            }
-            saveState(); render();
-          });
-        });
-
-        const runExpertBtn = document.getElementById('runExpertBtn');
-        if (runExpertBtn) {
-          runExpertBtn.addEventListener('click', () => {
-            state.expertWorkspace.generatedDraft = buildExpertDraft();
-            state.expertWorkspace.draftReviewed = false;
-            saveState(); render();
-            showToast('已生成初稿！请核对教材课标后点击“标记人工已审”');
-          });
-        }
-
-        const draftOutputArea = document.getElementById('draftOutputArea');
-        if (draftOutputArea) {
-          draftOutputArea.addEventListener('input', () => {
-            state.expertWorkspace.generatedDraft = draftOutputArea.value;
-            saveState();
-          });
-        }
-
-        const confirmReviewBtn = document.getElementById('confirmReviewBtn');
-        if (confirmReviewBtn) {
-          confirmReviewBtn.addEventListener('click', () => {
-            if (!state.expertWorkspace.generatedDraft.trim()) return showToast('请先生成初稿', 'warning');
-            state.expertWorkspace.draftReviewed = !state.expertWorkspace.draftReviewed;
-            saveState(); render();
-            showToast(state.expertWorkspace.draftReviewed ? '已确认人工终审，可安全归档或导出' : '已切换为待审核状态');
-          });
-        }
-
-        const copyDraftBtn = document.getElementById('copyDraftBtn');
-        if (copyDraftBtn) {
-          copyDraftBtn.addEventListener('click', () => {
-            if (!state.expertWorkspace.generatedDraft.trim()) return showToast('当前没有可复制的内容', 'warning');
-            copyText(state.expertWorkspace.generatedDraft, '已复制产出内容');
-          });
-        }
-
-        const exportDraftBtn = document.getElementById('exportDraftBtn');
-        if (exportDraftBtn) {
-          exportDraftBtn.addEventListener('click', () => {
-            if (!state.expertWorkspace.generatedDraft.trim()) return showToast('请先生成初稿再导出', 'warning');
-            const name = `${state.expertWorkspace.topic || '教学产出'}_${new Date().toISOString().slice(0, 10)}.md`;
-            downloadTextFile(name, state.expertWorkspace.generatedDraft);
-          });
-        }
-
-        const archiveDraftBtn = document.getElementById('archiveDraftBtn');
-        if (archiveDraftBtn) {
-          archiveDraftBtn.addEventListener('click', () => {
-            if (!state.expertWorkspace.generatedDraft.trim()) return showToast('请先生成初稿再归档', 'warning');
-            const wf = WORKFLOWS.find(x => x.id === state.expertWorkspace.selectedWorkflow);
-            const today = new Date().toISOString().slice(0, 10);
-            state.assets.unshift({
-              id: 'a_' + Date.now(),
-              zone: 'output',
-              title: `${state.expertWorkspace.topic || '教学方案'}_${wf ? wf.name : 'AI产出'}_${today}.md`,
-              date: today.slice(0, 7),
-              className: state.config.classes[0] || '通用',
-              docType: state.expertWorkspace.selectedWorkflow === 'wf_ppt' ? '课件' : state.expertWorkspace.selectedWorkflow === 'wf_homework' ? '习题与题库' : '教案',
-              sizeMB: 1,
-              summary: state.expertWorkspace.generatedDraft
-            });
-            saveState(); updateChrome();
-            showToast('已一键归档至「资产库 · 产出文件区」');
-          });
-        }
-
-        const shareColleagueBtn = document.getElementById('shareColleagueBtn');
-        if (shareColleagueBtn) {
-          shareColleagueBtn.addEventListener('click', () => {
-            if (!state.expertWorkspace.generatedDraft.trim()) return showToast('请先生成产出内容再流转', 'warning');
-            const packText = `【WorkBuddy 备课组流转包】\n项目：${state.config.projectName}\n课题：${state.expertWorkspace.topic}\n教材版本：${state.config.textbookVersion}\n审核状态：${state.expertWorkspace.draftReviewed ? '已人工终审' : '初稿待共同审定'}\n说明：已自动禁用个人授权连接器，接收方无需重沟通背景即可接续修改。\n\n${state.expertWorkspace.generatedDraft}`;
-            openModal('流转产物给备课组同事', `
-              <div class="space-y-3 text-xs">
-                <div class="p-3 rounded-xl bg-indigo-50 text-indigo-900">
-                  流转将打包：<strong>任务产物 + 项目指令上下文 + 审核状态</strong>。已自动遵循安全边界（个人授权连接器禁用，学生信息已脱敏）。
+              <div class="lg:col-span-5 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-bold text-slate-900">最新班级通知</h3>
+                  <button data-jump="notices" class="text-xs font-semibold text-indigo-600 hover:underline">全部通知 →</button>
                 </div>
-                <textarea id="sharePackText" rows="10" readonly class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 font-mono text-[11px]">${esc(packText)}</textarea>
+                ${notices.length ? notices.slice(0, 3).map(renderNoticeCard).join('') : '<div class="bg-white rounded-2xl border border-slate-200 p-6 text-center text-xs text-slate-400">暂无匹配通知</div>'}
               </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">关闭</button><button id="mCopyShareBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold">复制流转包</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mCopyShareBtn').addEventListener('click', () => {
-              copyText(packText, '已复制备课组流转包，可直接发给同事');
-              closeModal();
-            });
-          });
-        }
+            </section>
 
-        // Settings save & prompt generator
-        const saveConfigBtn = document.getElementById('saveConfigBtn');
-        if (saveConfigBtn) {
-          saveConfigBtn.addEventListener('click', () => {
-            state.config.projectName = document.getElementById('cfgProjectName').value.trim() || state.config.projectName;
-            state.config.teacherRole = document.getElementById('cfgTeacherRole').value.trim();
-            state.config.subject = document.getElementById('cfgSubject').value.trim();
-            const clsRaw = document.getElementById('cfgClasses').value.trim();
-            state.config.classes = clsRaw ? clsRaw.split(/[，,、]/).map(s => s.trim()).filter(Boolean) : ['默认班级'];
-            state.config.textbookVersion = document.getElementById('cfgTextbook').value.trim();
-            state.config.dailyTasks = document.getElementById('cfgDailyTasks').value.trim();
-            state.config.commonResources = document.getElementById('cfgResources').value.trim();
-            state.config.reminderStyle = document.getElementById('cfgReminderStyle').value.trim();
-            state.config.reviewHabit = document.getElementById('cfgReviewHabit').value.trim();
-            state.config.globalInstructions = document.getElementById('cfgGlobalInstructions').value.trim();
-            saveState(); render(); showToast('项目配置与全局指令已保存生效');
-          });
-        }
-
-        const generatePromptBtn = document.getElementById('generatePromptBtn');
-        if (generatePromptBtn) {
-          generatePromptBtn.addEventListener('click', () => {
-            const c = state.config;
-            const promptText = `请帮我搭建一个教师个人工作台首页，适用于${c.teacherRole}日常使用（任教${c.classes.join('、')}，教材版本：${c.textbookVersion}）。页面请包含：今日课程、备课中心、作业反馈、教学资源、班级事务、每周复盘。首页优先展示今天课表、待办提醒、待批改作业数量和常用资料入口。全局指令要求：${c.globalInstructions}。整体风格简洁、清楚，适合每天打开直接使用。`;
-            openModal('可直接复制给 WorkBuddy 的搭建指令', `
-              <div class="space-y-3 text-xs">
-                <p class="text-slate-600">已根据你填写的 6 项需求模板与全局指令，自动生成文章推荐的标准搭建提示词：</p>
-                <textarea rows="7" readonly class="w-full p-3.5 rounded-xl bg-slate-50 border border-slate-200 leading-relaxed text-slate-800">${esc(promptText)}</textarea>
+            <section class="space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-slate-900">本周分层病案作业（可勾选个人完成进度）</h3>
+                <button data-jump="homework" class="text-xs font-semibold text-indigo-600 hover:underline">全部作业 →</button>
               </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">关闭</button><button id="mCopyPromptBtn" class="px-4 py-1.5 rounded-lg bg-violet-600 text-white text-xs font-semibold">复制指令</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mCopyPromptBtn').addEventListener('click', () => {
-              copyText(promptText, '已复制 WorkBuddy 搭建指令');
-              closeModal();
-            });
-          });
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                ${homeworks.length ? homeworks.map(renderHomeworkCard).join('') : '<div class="bg-white rounded-2xl border border-slate-200 p-6 text-center text-xs text-slate-400">暂无匹配作业</div>'}
+              </div>
+            </section>
+          `;
+        } else if (state.tab === 'schedule') {
+          main.innerHTML = `
+            <div class="space-y-3">
+              <h2 class="text-base font-bold text-slate-900">课表与临床见习安排（共 ${schedules.length} 项）</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${schedules.length ? schedules.map(renderScheduleCard).join('') : '<div class="col-span-2 bg-white rounded-2xl border border-slate-200 p-8 text-center text-xs text-slate-400">当前筛选条件下暂无课程</div>'}
+              </div>
+            </div>
+          `;
+        } else if (state.tab === 'homework') {
+          main.innerHTML = `
+            <div class="space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h2 class="text-base font-bold text-slate-900">分层病案作业与自测清单</h2>
+                <span class="text-xs text-slate-500">勾选状态仅保存在你自己的设备上，方便核对完成进度</span>
+              </div>
+              <div class="space-y-4">
+                ${homeworks.length ? homeworks.map(renderHomeworkCard).join('') : '<div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-xs text-slate-400">当前筛选条件下暂无作业</div>'}
+              </div>
+            </div>
+          `;
+        } else if (state.tab === 'resources') {
+          main.innerHTML = `
+            <div class="space-y-3">
+              <h2 class="text-base font-bold text-slate-900">公开课件、大纲与脱敏病案资料（共 ${resources.length} 份）</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                ${resources.length ? resources.map(renderResourceCard).join('') : '<div class="col-span-3 bg-white rounded-2xl border border-slate-200 p-8 text-center text-xs text-slate-400">当前筛选条件下暂无资料</div>'}
+              </div>
+            </div>
+          `;
+        } else if (state.tab === 'notices') {
+          main.innerHTML = `
+            <div class="space-y-3">
+              <h2 class="text-base font-bold text-slate-900">班级通知与见习提醒（共 ${notices.length} 条）</h2>
+              <div class="space-y-3">
+                ${notices.length ? notices.map(renderNoticeCard).join('') : '<div class="bg-white rounded-2xl border border-slate-200 p-8 text-center text-xs text-slate-400">当前筛选条件下暂无通知</div>'}
+              </div>
+            </div>
+          `;
         }
 
-        const resetDemoDataBtn = document.getElementById('resetDemoDataBtn');
-        if (resetDemoDataBtn) {
-          resetDemoDataBtn.addEventListener('click', () => {
-            openModal('恢复默认演示数据', `<p class="text-xs text-slate-600">确定要将所有课程、备课、资产库和项目配置恢复为初始演示数据吗？此操作无法撤销。</p>`,
-              `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mConfirmResetBtn" class="px-4 py-1.5 rounded-lg bg-rose-600 text-white text-xs font-semibold">确认重置</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mConfirmResetBtn').addEventListener('click', () => {
-              state = getDefaultState();
-              saveState(); closeModal(); render(); showToast('已恢复默认演示数据');
-            });
-          });
-        }
-
-        // Scheduled tasks toggle & add
-        main.querySelectorAll('[data-toggle-schedule]').forEach(el => {
+        // Bind dynamic events
+        main.querySelectorAll('[data-jump]').forEach(el => {
           el.addEventListener('click', () => {
-            const st = state.scheduledTasks.find(x => x.id === el.dataset.toggleSchedule);
-            if (st) {
-              st.enabled = !st.enabled;
-              saveState(); render(); showToast(st.enabled ? '已启用该定时任务' : '已暂停该定时任务');
-            }
+            state.tab = el.dataset.jump;
+            updateTabChrome();
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
           });
         });
 
-        const addScheduleBtn = document.getElementById('addScheduleBtn');
-        if (addScheduleBtn) {
-          addScheduleBtn.addEventListener('click', () => {
-            openModal('新建定时任务', `
-              <div class="space-y-3 text-xs">
-                <div><label class="block font-semibold mb-1">任务名称</label><input id="mStTitle" type="text" placeholder="例如：每周三4个班临床见习进度与病历规范检查" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">触发周期</label><input id="mStTime" type="text" placeholder="例如：每周三 18:00" class="w-full px-3 py-2 rounded-xl border border-slate-200" /></div>
-                <div><label class="block font-semibold mb-1">自动执行提示词</label><textarea id="mStPrompt" rows="2" class="w-full p-2.5 rounded-xl border border-slate-200"></textarea></div>
-              </div>
-            `, `<button id="mCancelBtn" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs">取消</button><button id="mSaveStBtn" class="px-4 py-1.5 rounded-lg bg-indigo-600 text-white text-xs font-semibold">保存任务</button>`);
-            document.getElementById('mCancelBtn').addEventListener('click', closeModal);
-            document.getElementById('mSaveStBtn').addEventListener('click', () => {
-              const title = document.getElementById('mStTitle').value.trim();
-              if (!title) return showToast('请填写任务名称', 'warning');
-              state.scheduledTasks.push({
-                id: 'st_' + Date.now(),
-                title,
-                schedule: document.getElementById('mStTime').value.trim() || '每周固定时间',
-                prompt: document.getElementById('mStPrompt').value.trim() || '提醒执行周期性教学任务',
-                enabled: true
-              });
-              saveState(); closeModal(); render(); showToast('已新建定时任务');
-            });
-          });
-        }
-
-        // Acceptance checklist toggle
-        main.querySelectorAll('[data-toggle-acc]').forEach(el => {
+        main.querySelectorAll('[data-hw-check]').forEach(el => {
           el.addEventListener('change', () => {
-            const item = state.acceptanceChecklist.find(x => x.id === el.dataset.toggleAcc);
-            if (item) {
-              item.checked = el.checked;
-              saveState(); render();
+            state.checkedTasks[el.dataset.hwCheck] = el.checked;
+            saveChecks();
+            render();
+          });
+        });
+
+        main.querySelectorAll('[data-res-preview]').forEach(el => {
+          el.addEventListener('click', () => {
+            const res = COURSE_PORTAL_DATA.resources.find(x => x.id === el.dataset.resPreview);
+            if (res) {
+              openDetail(res.title, `
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2 py-0.5 rounded bg-violet-50 text-violet-700 font-semibold">${esc(res.category)}</span>
+                  <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600">更新于 ${esc(res.updated)}</span>
+                </div>
+                <p class="p-3 rounded-xl bg-slate-50 border border-slate-200">${esc(res.summary)}</p>
+                <p class="text-slate-500">提示：本页面当前为静态门户示例，老师在代码中填入学院网盘或超星学习通链接后，点击此处即可直接跳转下载。</p>
+              `);
             }
           });
         });
       }
 
-      // Bind static chrome listeners once
-      document.querySelectorAll('#sidebarNav .nav-item').forEach(btn => {
-        btn.addEventListener('click', () => navigate(btn.dataset.view));
-      });
-      document.getElementById('sidebarProjectBtn').addEventListener('click', () => navigate('settings'));
-      document.getElementById('openSidebarBtn').addEventListener('click', openMobileSidebar);
-      document.getElementById('closeSidebarBtn').addEventListener('click', closeMobileSidebar);
-      document.getElementById('mobileOverlay').addEventListener('click', closeMobileSidebar);
-      document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
-      document.getElementById('modalBackdrop').addEventListener('click', (e) => {
-        if (e.target.id === 'modalBackdrop') closeModal();
+      function updateTabChrome() {
+        document.querySelectorAll('#navTabs .tab-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.tab === state.tab);
+        });
+      }
+
+      document.querySelectorAll('#navTabs .tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.tab = btn.dataset.tab;
+          updateTabChrome();
+          render();
+        });
       });
 
-      document.getElementById('togglePrivacyBtn').addEventListener('click', () => {
-        state.privacyAnonymized = !state.privacyAnonymized;
-        saveState();
-        render();
-        showToast(state.privacyAnonymized ? '已开启隐私脱敏，学生姓名将显示为匿名编号' : '已关闭隐私脱敏（仅建议本地自查）', state.privacyAnonymized ? 'success' : 'warning');
+      document.querySelectorAll('#classFilterBar .class-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedClass = btn.dataset.class;
+          document.querySelectorAll('#classFilterBar .class-pill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          render();
+        });
       });
 
-      document.getElementById('quickAiPrepBtn').addEventListener('click', () => navigate('experts'));
-
-      const searchInput = document.getElementById('globalSearchInput');
-      searchInput.addEventListener('input', () => {
-        state.searchQuery = searchInput.value;
-        render();
-      });
-      document.getElementById('clearSearchBtn').addEventListener('click', () => {
-        state.searchQuery = '';
-        searchInput.value = '';
+      document.getElementById('searchBox').addEventListener('input', (e) => {
+        state.search = e.target.value;
         render();
       });
 
-      // Initial render
+      document.getElementById('closeModalBtn').addEventListener('click', closeDetail);
+      document.getElementById('modalOkBtn').addEventListener('click', closeDetail);
+      document.getElementById('detailModal').addEventListener('click', (e) => {
+        if (e.target.id === 'detailModal') closeDetail();
+      });
+
       render();
     })();
   </script>
